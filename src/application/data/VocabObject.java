@@ -61,4 +61,11 @@ public class VocabObject {
 	public void levelUp() {
 		level.levelUp();
 	}
+	
+	/**
+	 * Level down, if min level not reached
+	 */
+	public void levelDown() {
+		level.levelDown();
+	}
 }

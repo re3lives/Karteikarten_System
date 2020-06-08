@@ -21,18 +21,25 @@ public class SubjectObject {
 	/**
 	 * Creates new vocab for this subject
 	 * @param vocab
+	 * @return 
 	 * @throws NoSuchAlgorithmException
 	 */
-	public void addVocab(String vocab) throws NoSuchAlgorithmException {
+	public VocabObject createVocab(String vocab) throws NoSuchAlgorithmException{
 		if(vocab == null || vocab.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
 		
 		VocabObject curr = new VocabObject(vocab);
+		
+		if(vocabList == null){
+			throw new IllegalArgumentException();
+		}
+		
 		if(vocabList.contains(curr)) {
 			throw new IllegalArgumentException("The vocab already exisits!");
 		}
 		vocabList.add(curr);
+		return curr;
 	}
 	
 	/**

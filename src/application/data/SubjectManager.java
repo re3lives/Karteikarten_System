@@ -9,27 +9,21 @@ public class SubjectManager {
 	/**
 	 * Creates new subject
 	 * @param name
+	 * @throws NoSuchAlgorithmException 
 	 */
-	void createSubject(String name) {
+	public SubjectObject createSubject(String name) throws NoSuchAlgorithmException {
 		if(name == null || name.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
 		
 		SubjectObject sub = null;
-		try {
-			sub = new SubjectObject(name);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-		
-		if(sub == null) {
-			throw new IllegalArgumentException("Error while init subject!");
-		}
+		sub = new SubjectObject(name);
 		
 		if(subjectList.contains(sub)) {
 			throw new IllegalArgumentException("Subject already exists!");
 		}
 		subjectList.add(sub);
+		return sub;
 	}
 	
 	void importSubjectFromCSV() {
