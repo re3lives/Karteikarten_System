@@ -2,10 +2,18 @@ package application.data;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class SubjectObject {
 	private ArrayList<VocabObject> vocabList = new ArrayList<VocabObject>();
+
+	private String name;
+	//TODO: ID Management
+	private short id;
+	
+	public SubjectObject(String name, short id) {
+		this.name = name;
+		this.id = id;
+	}
 	
 	/**
 	 * Creates new vocab for this subject
@@ -60,5 +68,21 @@ public class SubjectObject {
 			throw new IllegalAccessError("Object does not exist!");
 		}
 		return vocab;
+	}
+	
+	/**
+	 * Get name
+	 * @return
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Get id
+	 * @return
+	 */
+	public short getId() {
+		return id;
 	}
 }
