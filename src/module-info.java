@@ -3,4 +3,5 @@ module Karteikarten_System {
 
 	requires javafx.base;
 	requires javafx.graphics;
+	requires javafx.controls;
 }
