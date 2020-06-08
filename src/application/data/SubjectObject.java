@@ -1,5 +1,7 @@
 package application.data;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
@@ -7,12 +9,14 @@ public class SubjectObject {
 	private ArrayList<VocabObject> vocabList = new ArrayList<VocabObject>();
 
 	private String name;
-	//TODO: ID Management
-	private short id;
+	private byte[] id;
 	
-	public SubjectObject(String name, short id) {
+	public SubjectObject(String name) throws NoSuchAlgorithmException {
+		if(name == null || name.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
 		this.name = name;
-		this.id = id;
+		this.id = this.getSHA(name);
 	}
 	
 	/**
@@ -27,7 +31,7 @@ public class SubjectObject {
 		
 		VocabObject curr = new VocabObject(vocab);
 		if(vocabList.contains(curr)) {
-			throw new IllegalArgumentException("The element already exisits!");
+			throw new IllegalArgumentException("The vocab already exisits!");
 		}
 		vocabList.add(curr);
 	}
@@ -40,7 +44,7 @@ public class SubjectObject {
 		if(oldVocab == null || oldVocab.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
-		VocabObject vocab = getVocabByString(oldVocab);
+		VocabObject vocab = findVocabByString(oldVocab);
 		vocabList.remove(vocab);
 	}
 	
@@ -53,7 +57,7 @@ public class SubjectObject {
 		if(oldVocab == null || newVocab == null || oldVocab.isEmpty() ||newVocab.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
-		VocabObject vocab = getVocabByString(oldVocab);
+		VocabObject vocab = findVocabByString(oldVocab);
 		vocab.setVocab(newVocab);
 	}
 	
@@ -62,7 +66,7 @@ public class SubjectObject {
 	 * @param id
 	 * @return
 	 */
-	private VocabObject getVocabByString(String str) {
+	private VocabObject findVocabByString(String str) {
 		VocabObject vocab =  vocabList.stream().filter(v -> v.getVocab().equals(str)).findFirst().orElse(null);
 		if(vocab == null) {
 			throw new IllegalAccessError("Object does not exist!");
@@ -82,7 +86,21 @@ public class SubjectObject {
 	 * Get id
 	 * @return
 	 */
-	public short getId() {
+	public byte[] getId() {
 		return id;
+	}
+	
+	/**
+	 * Generates hash for id
+	 * @param input
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
+	public byte[] getSHA(String input) throws NoSuchAlgorithmException {
+		if(input == null || input.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
+		MessageDigest md = MessageDigest.getInstance("SHA-256");
+		return md.digest(input.getBytes(StandardCharsets.UTF_8));
 	}
 }

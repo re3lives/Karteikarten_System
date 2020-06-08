@@ -10,6 +10,9 @@ public class VocabObject {
 	private LevelObject level = new LevelObject();
 
 	public VocabObject(String vocab) throws NoSuchAlgorithmException {
+		if(vocab == null || vocab.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
 		this.vocab = vocab;
 		this.id = getSHA(vocab);
 	}
@@ -67,6 +70,9 @@ public class VocabObject {
 	 * @throws NoSuchAlgorithmException
 	 */
 	public byte[] getSHA(String input) throws NoSuchAlgorithmException {
+		if(input == null || input.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
 		MessageDigest md = MessageDigest.getInstance("SHA-256");
 		return md.digest(input.getBytes(StandardCharsets.UTF_8));
 	}
