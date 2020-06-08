@@ -1,7 +1,5 @@
 package application.data;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
@@ -10,13 +8,14 @@ public class SubjectObject {
 
 	private String name;
 	private byte[] id;
+	private HashGenerator gen = new HashGenerator();
 	
 	public SubjectObject(String name) throws NoSuchAlgorithmException {
 		if(name == null || name.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
 		this.name = name;
-		this.id = this.getSHA(name);
+		this.id = gen.getSHA(name);
 	}
 	
 	/**
@@ -67,7 +66,7 @@ public class SubjectObject {
 	 * @return
 	 */
 	private VocabObject findVocabByString(String str) {
-		VocabObject vocab =  vocabList.stream().filter(v -> v.getVocab().equals(str)).findFirst().orElse(null);
+		VocabObject vocab =  vocabList.stream().filter(v -> v.getVocab().equalsIgnoreCase(str)).findFirst().orElse(null);
 		if(vocab == null) {
 			throw new IllegalAccessError("Object does not exist!");
 		}
@@ -88,19 +87,5 @@ public class SubjectObject {
 	 */
 	public byte[] getId() {
 		return id;
-	}
-	
-	/**
-	 * Generates hash for id
-	 * @param input
-	 * @return
-	 * @throws NoSuchAlgorithmException
-	 */
-	public byte[] getSHA(String input) throws NoSuchAlgorithmException {
-		if(input == null || input.isEmpty()) {
-			throw new IllegalArgumentException();
-		}
-		MessageDigest md = MessageDigest.getInstance("SHA-256");
-		return md.digest(input.getBytes(StandardCharsets.UTF_8));
 	}
 }
