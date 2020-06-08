@@ -9,4 +9,8 @@ public class SubjectObject {
 		VocabObject curr = new VocabObject(vocab, vocabList.size());
 		vocabList.add(curr);
 	}
+	
+	public void removeVocab(int id) {
+		
+	}
 }

@@ -2,6 +2,10 @@ package application.data;
 
 public class VocabObject {
 	private String vocab;
+	
+	/**
+	 * TODO: Hash ID
+	 */
 	private int id;
 	private LevelObject level = new LevelObject();
 	
