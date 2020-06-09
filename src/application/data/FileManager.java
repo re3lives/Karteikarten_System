@@ -13,7 +13,7 @@ public class FileManager {
 	}
 
 	/**
-	 * Save Subject to csv
+	 * Save SubjectObject to csv
 	 * 
 	 * @param sub
 	 * @param path
@@ -35,6 +35,28 @@ public class FileManager {
 			file.append(vocab.getLevel() + "");
 			file.append("\n");
 		}
+		file.flush();
+		file.close();
+	}
+
+	/**
+	 * Save SubjectManager to csv
+	 * 
+	 * @param subManager
+	 * @throws IOException
+	 */
+
+	public void saveSubjectManagerToCSV(SubjectManager subManager) throws IOException {
+		FileWriter file = new FileWriter("subjects.csv");
+
+		file.append("SubjectName");
+		file.append("\n");
+
+		for (SubjectObject subject : subManager.getSubjectList()) {
+			file.append(subject.getName());
+			file.append("\n");
+		}
+
 		file.flush();
 		file.close();
 	}

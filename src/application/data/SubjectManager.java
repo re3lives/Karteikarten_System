@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class SubjectManager {
 	private ArrayList<SubjectObject> subjectList = new ArrayList<SubjectObject>();
+
 	FileManager manager = new FileManager();
 
 	/**
@@ -53,7 +54,17 @@ public class SubjectManager {
 	public void onClose() throws IOException {
 		for (SubjectObject subject : subjectList) {
 			manager.saveSubjectObjectToCSV(subject, "", "test.csv");
+			manager.saveSubjectManagerToCSV(this);
 		}
+	}
+
+	/**
+	 * Get subject list
+	 * 
+	 * @return
+	 */
+	public ArrayList<SubjectObject> getSubjectList() {
+		return subjectList;
 	}
 
 }
