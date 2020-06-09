@@ -7,12 +7,13 @@ import java.security.NoSuchAlgorithmException;
 public class HashGenerator {
 	/**
 	 * Generates hash for id
+	 * 
 	 * @param input
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
 	public byte[] getSHA(String input) throws NoSuchAlgorithmException {
-		if(input == null || input.isEmpty()) {
+		if (input == null || input.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
 		MessageDigest md = MessageDigest.getInstance("SHA-256");

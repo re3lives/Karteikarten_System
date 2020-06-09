@@ -9,7 +9,7 @@ public class VocabObject {
 	private HashGenerator gen = new HashGenerator();
 
 	public VocabObject(String vocab) throws NoSuchAlgorithmException {
-		if(vocab == null || vocab.isEmpty()) {
+		if (vocab == null || vocab.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
 		this.vocab = vocab;
@@ -61,7 +61,7 @@ public class VocabObject {
 	public void levelUp() {
 		level.levelUp();
 	}
-	
+
 	/**
 	 * Level down, if min level not reached
 	 */
