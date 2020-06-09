@@ -1,5 +1,6 @@
 package application.data;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -21,7 +22,7 @@ public class FileManager {
 	 * @throws IOException
 	 */
 	public void saveSubjectObjectToCSV(SubjectObject sub, String path, String filename) throws IOException {
-		FileWriter file = new FileWriter(filename);
+		FileWriter file = new FileWriter(new File(path, filename));
 
 		file.append("VocabString");
 		file.append(",");
