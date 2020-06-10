@@ -1,12 +1,17 @@
 package application.data;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 public class FileManager {
 
-	String path = "";
+	String exportPath = "./subjects";
 
 	public FileManager() {
 
@@ -21,8 +26,12 @@ public class FileManager {
 	 * @return
 	 * @throws IOException
 	 */
-	public void saveSubjectObjectToCSV(SubjectObject sub, String path, String filename) throws IOException {
-		FileWriter file = new FileWriter(new File(path, filename));
+	public void saveSubjectObjectToCSV(SubjectObject sub, String subjectName) throws IOException {
+		if (sub == null || subjectName == null || subjectName.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
+		new File(exportPath).mkdir();
+		FileWriter file = new FileWriter(new File(exportPath, subjectName + ".csv"));
 
 		file.append("VocabString");
 		file.append(",");
@@ -45,8 +54,10 @@ public class FileManager {
 	 * @param subManager
 	 * @throws IOException
 	 */
-
 	public void saveSubjectManagerToCSV(SubjectManager subManager) throws IOException {
+		if (subManager == null) {
+			throw new IllegalArgumentException();
+		}
 		FileWriter file = new FileWriter("subjects.csv");
 
 		file.append("SubjectName");
@@ -59,6 +70,88 @@ public class FileManager {
 
 		file.flush();
 		file.close();
+	}
+
+	/**
+	 * Loads subject from csv
+	 * 
+	 * @param path
+	 * @param filename
+	 * @return
+	 * @throws IOException
+	 * @throws NoSuchAlgorithmException
+	 */
+	public SubjectObject loadSubjectObjectFromCSV(String subjectName) throws IOException, NoSuchAlgorithmException {
+		if (subjectName == null || subjectName.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
+		SubjectObject sub = new SubjectObject(subjectName.split("\\.")[0]);
+
+		BufferedReader csvReader = new BufferedReader(new FileReader(new File(exportPath, subjectName + ".csv")));
+		String row;
+		while ((row = csvReader.readLine()) != null) {
+			String[] data = row.split(",");
+			if (!(data[0].equalsIgnoreCase("vocabstring") && data[1].equalsIgnoreCase("level"))) {
+				VocabObject curr = sub.createVocab(data[0]);
+				curr.setLevel(Short.valueOf(data[1].replaceAll(" ", "")));
+			}
+		}
+		csvReader.close();
+		return sub;
+	}
+
+	/**
+	 * Loads all subjects from csv
+	 * 
+	 * @param subjectList
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws IOException
+	 */
+	public ArrayList<SubjectObject> loadAllSubjectObjectsFromCSV(ArrayList<SubjectObject> subjectList)
+			throws NoSuchAlgorithmException, IOException {
+		if (subjectList == null) {
+			throw new IllegalArgumentException();
+		}
+		ArrayList<SubjectObject> temp = new ArrayList<SubjectObject>();
+		;
+		for (SubjectObject sub : subjectList) {
+			temp.add(loadSubjectObjectFromCSV(sub.getName()));
+		}
+		subjectList = temp;
+		return subjectList;
+	}
+
+	/**
+	 * Loads SubjectManager from csv
+	 * 
+	 * @return
+	 * @throws IOException
+	 * @throws NoSuchAlgorithmException
+	 */
+	public SubjectManager loadSubjectManagerFromCSV(SubjectManager manager)
+			throws IOException, NoSuchAlgorithmException {
+		if (manager == null) {
+			throw new IllegalArgumentException();
+		}
+
+		try {
+			BufferedReader csvReader = new BufferedReader(new FileReader("subjects.csv"));
+			String row;
+			while ((row = csvReader.readLine()) != null) {
+				String[] data = row.split(",");
+				if (!(data[0].equalsIgnoreCase("SubjectName"))) {
+					manager.createSubject(data[0]);
+				}
+			}
+			csvReader.close();
+		} catch (FileNotFoundException e) {
+
+		} catch (Exception e) {
+			throw e;
+		}
+
+		return manager;
 	}
 
 }

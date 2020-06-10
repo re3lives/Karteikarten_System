@@ -8,6 +8,11 @@ public class SubjectManager {
 	private ArrayList<SubjectObject> subjectList = new ArrayList<SubjectObject>();
 
 	FileManager manager = new FileManager();
+	
+	public SubjectManager() throws NoSuchAlgorithmException, IOException {
+		manager.loadSubjectManagerFromCSV(this);
+		manager.loadAllSubjectObjectsFromCSV(subjectList);
+	}
 
 	/**
 	 * Creates new subject
@@ -53,7 +58,7 @@ public class SubjectManager {
 	 */
 	public void onClose() throws IOException {
 		for (SubjectObject subject : subjectList) {
-			manager.saveSubjectObjectToCSV(subject, "", "test.csv");
+			manager.saveSubjectObjectToCSV(subject, subject.getName()+".csv");
 			manager.saveSubjectManagerToCSV(this);
 		}
 	}

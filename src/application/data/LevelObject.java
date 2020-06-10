@@ -33,7 +33,7 @@ public class LevelObject {
 	 * 
 	 * @return
 	 */
-	public short getCurrLevel() {
+	public short getLevel() {
 		return currLevel;
 	}
 
@@ -42,7 +42,7 @@ public class LevelObject {
 	 * 
 	 * @return
 	 */
-	public String getCurrLevelName() {
+	public String getLevelName() {
 		return levelNames[currLevel];
 	}
 
@@ -61,6 +61,14 @@ public class LevelObject {
 	public void levelDown() {
 		if (currLevel > levels[0]) {
 			currLevel -= 1;
+		}
+	}
+
+	public void setLevel(short level) {
+		if (level >= levels[0] && level <= levels[levels.length - 1]) {
+			currLevel = level;
+		} else {
+			throw new IllegalArgumentException("Unkown level!");
 		}
 	}
 }

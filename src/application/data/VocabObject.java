@@ -2,10 +2,9 @@ package application.data;
 
 import java.security.NoSuchAlgorithmException;
 
-public class VocabObject {
+public class VocabObject extends LevelObject{
 	private String vocab;
 	private byte[] id;
-	private LevelObject level = new LevelObject();
 	private HashGenerator gen = new HashGenerator();
 
 	public VocabObject(String vocab) throws NoSuchAlgorithmException {
@@ -44,28 +43,5 @@ public class VocabObject {
 	 */
 	public byte[] getId() {
 		return id;
-	}
-
-	/**
-	 * Returns current level
-	 * 
-	 * @return
-	 */
-	public short getLevel() {
-		return level.getCurrLevel();
-	}
-
-	/**
-	 * Level up, if max level not reached
-	 */
-	public void levelUp() {
-		level.levelUp();
-	}
-
-	/**
-	 * Level down, if min level not reached
-	 */
-	public void levelDown() {
-		level.levelDown();
 	}
 }
