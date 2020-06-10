@@ -18,21 +18,7 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws NoSuchAlgorithmException, IOException {
-		SubjectManager manager = new SubjectManager();
-		try {
-			SubjectObject sub = manager.createSubject("Moin");
-			VocabObject vocab = sub.createVocab("hi");
-			System.out.println(vocab.getLevel());
-			vocab.levelDown();
-			System.out.println(vocab.getLevel());
-			vocab.levelUp();
-			System.out.println(vocab.getLevel());
-			manager.onClose();
-			System.out.println();
-			System.out.println(manager.getSubjectList().get(0).getName());
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+
 		
 		try {
 			BorderPane root = new BorderPane();
