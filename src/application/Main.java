@@ -3,10 +3,6 @@ package application;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
-import application.data.FileManager;
-import application.data.SubjectManager;
-import application.data.SubjectObject;
-import application.data.VocabObject;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
