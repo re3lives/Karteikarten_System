@@ -1,4 +1,4 @@
-package application.core;
+package application.trainer;
 
 import java.util.Random;
 

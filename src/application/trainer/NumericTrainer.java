@@ -1,4 +1,4 @@
-package application.core;
+package application.trainer;
 
 import application.data.SubjectObject;
 import application.data.VocabObject;
@@ -9,7 +9,6 @@ public class NumericTrainer extends Trainer {
 		super(sub);
 	}
 
-	
 	/**
 	 * Gives next vocab in numeric order
 	 */

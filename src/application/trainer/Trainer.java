@@ -1,4 +1,4 @@
-package application.core;
+package application.trainer;
 
 import application.data.SubjectObject;
 import application.data.VocabObject;
