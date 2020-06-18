@@ -21,7 +21,7 @@ public class MainWindowController {
 			Scene scene = new Scene(root, 600, 300);
 
 			Stage stage = new Stage();
-			stage.setTitle("About");
+			stage.setTitle("Über uns");
 			stage.setScene(scene);  
 	        stage.show();
 		} catch (Exception e) {
