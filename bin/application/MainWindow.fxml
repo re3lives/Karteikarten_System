@@ -3,12 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -21,8 +24,6 @@
         <menus>
           <Menu mnemonicParsing="false" text="Programm">
             <items>
-              <MenuItem mnemonicParsing="false" text="Importieren" />
-                  <MenuItem mnemonicParsing="false" text="Exportieren" />
                   <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Beenden" />
             </items>
           </Menu>
@@ -69,19 +70,65 @@
                      <children>
                         <SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <ListView layoutX="88.0" layoutY="137.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <TableView layoutX="334.0" layoutY="124.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn prefWidth="75.0" text="C1" />
+                                        <TableColumn prefWidth="75.0" text="C2" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
                           </items>
                         </SplitPane>
                         <HBox layoutX="104.0" layoutY="476.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="476.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Hinzufügen">
+                              <Button mnemonicParsing="false" prefWidth="80.0" text="Hinzufügen">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Bearbeiten" />
-                              <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" text="Löschen" />
+                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Bearbeiten">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Löschen">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button layoutX="30.0" layoutY="30.0" mnemonicParsing="false" prefWidth="80.0" text="Importieren">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="40.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button layoutX="30.0" layoutY="30.0" mnemonicParsing="false" prefWidth="80.0" text="Exportieren">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button layoutX="510.0" layoutY="30.0" mnemonicParsing="false" prefWidth="80.0" text="Normaler Test">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="40.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button layoutX="610.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Zufälliger Test">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button layoutX="610.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Fehler Test">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
                            </children>
                         </HBox>
                      </children></AnchorPane>
