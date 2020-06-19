@@ -11,14 +11,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 
 public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws NoSuchAlgorithmException, IOException {
 
-		SubjectManager manager = new SubjectManager();
+		/*SubjectManager manager = new SubjectManager();
 		try {
 			SubjectObject sub = manager.createSubject("Moin");
 			VocabObject vocab = sub.createVocab("hi");
@@ -29,7 +28,7 @@ public class Main extends Application {
 			System.out.println(vocab.getLevel());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		}
+		}*/
 
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));

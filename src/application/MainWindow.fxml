@@ -20,16 +20,16 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainWindowController">
    <children>
-      <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar fx:id="MainMenuBar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Programm">
+          <Menu fx:id="ProgrammMenu" mnemonicParsing="false" text="Programm">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Beenden" />
+                  <MenuItem fx:id="QuitMenuItem" mnemonicParsing="false" onAction="#closeApp" text="Beenden" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Hilfe">
+          <Menu fx:id="HelpMenu" mnemonicParsing="false" text="Hilfe">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#openAbout" text="Über uns" />
+              <MenuItem fx:id="AboutMenuItem" mnemonicParsing="false" onAction="#openAbout" text="Über uns" />
             </items>
           </Menu>
         </menus>
@@ -59,25 +59,25 @@
       </HBox>
       <TabPane prefHeight="605.0" prefWidth="1360.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="163.0">
         <tabs>
-          <Tab text="Übersicht">
+          <Tab fx:id="OverviewTab" text="Übersicht">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="1360.0" />
             </content>
           </Tab>
-          <Tab text="Meine Lektionen">
+          <Tab fx:id="LectionsTab" text="Meine Lektionen">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane fx:id="LectionSplitPane" dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <ListView layoutX="88.0" layoutY="137.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <ListView fx:id="SubjectListView" layoutX="88.0" layoutY="137.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <TableView layoutX="334.0" layoutY="124.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="VocabTableView" layoutX="334.0" layoutY="124.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columns>
                                         <TableColumn prefWidth="75.0" text="C1" />
                                         <TableColumn prefWidth="75.0" text="C2" />
@@ -87,44 +87,44 @@
                               </AnchorPane>
                           </items>
                         </SplitPane>
-                        <HBox layoutX="104.0" layoutY="476.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="476.0">
+                        <HBox fx:id="LactionHBox" layoutX="104.0" layoutY="476.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="476.0">
                            <children>
-                              <Button mnemonicParsing="false" prefWidth="80.0" text="Hinzufügen">
+                              <Button fx:id="AddButton" mnemonicParsing="false" prefWidth="80.0" text="Hinzufügen">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Bearbeiten">
+                              <Button fx:id="EditButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Bearbeiten">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Löschen">
+                              <Button fx:id="DeleteButton" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Löschen">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button layoutX="30.0" layoutY="30.0" mnemonicParsing="false" prefWidth="80.0" text="Importieren">
+                              <Button fx:id="ImportButton" layoutX="30.0" layoutY="30.0" mnemonicParsing="false" prefWidth="80.0" text="Importieren">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="40.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button layoutX="30.0" layoutY="30.0" mnemonicParsing="false" prefWidth="80.0" text="Exportieren">
+                              <Button fx:id="ExportButton" layoutX="30.0" layoutY="30.0" mnemonicParsing="false" prefWidth="80.0" text="Exportieren">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button layoutX="510.0" layoutY="30.0" mnemonicParsing="false" prefWidth="80.0" text="Normaler Test">
+                              <Button fx:id="NormalTestButton" layoutX="510.0" layoutY="30.0" mnemonicParsing="false" prefWidth="80.0" text="Normaler Test">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="40.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button layoutX="610.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Zufälliger Test">
+                              <Button fx:id="RandomTestButton" layoutX="610.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Zufälliger Test">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button layoutX="610.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Fehler Test">
+                              <Button fx:id="FaultTestButton" layoutX="610.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Fehler Test">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>
@@ -134,7 +134,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="Abfrage">
+            <Tab fx:id="TestTab" text="Abfrage">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="1360.0">
                      <children>
@@ -143,10 +143,10 @@
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <Button layoutX="36.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Auflösen" />
-                                    <Button layoutX="891.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Richtig" />
-                                    <Button layoutX="1177.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Falsch" />
-                                    <Button layoutX="1035.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Ok" />
+                                    <Button fx:id="ViewButton" layoutX="36.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Auflösen" />
+                                    <Button fx:id="RightButton" layoutX="891.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Richtig" />
+                                    <Button fx:id="FalseButton" layoutX="1177.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Falsch" />
+                                    <Button fx:id="OkButton" layoutX="1035.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Ok" />
                                  </children>
                               </AnchorPane>
                           </items>
