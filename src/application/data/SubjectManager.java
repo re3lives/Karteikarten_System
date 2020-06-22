@@ -11,7 +11,7 @@ public class SubjectManager {
 	
 	public SubjectManager() throws NoSuchAlgorithmException, IOException {
 		manager.loadSubjectManagerFromCSV(this);
-		manager.loadAllSubjectObjectsFromCSV(subjectList);
+		subjectList = manager.loadAllSubjectObjectsFromCSV(subjectList);
 	}
 
 	/**
@@ -35,22 +35,6 @@ public class SubjectManager {
 		return sub;
 	}
 
-	void importSubjectFromCSV() {
-		// TODO
-	}
-
-	void exportSubjectToCSV() {
-		// TODO
-	}
-
-	void deleteSubject() {
-		// TODO
-	}
-
-	void loadSubjectsOnStart() {
-		// TODO
-	}
-
 	/**
 	 * Must be called to save data
 	 * 
@@ -58,7 +42,7 @@ public class SubjectManager {
 	 */
 	public void onClose() throws IOException {
 		for (SubjectObject subject : subjectList) {
-			manager.saveSubjectObjectToCSV(subject, subject.getName()+".csv");
+			manager.saveSubjectObjectToCSV(subject, subject.getName());
 			manager.saveSubjectManagerToCSV(this);
 		}
 	}
@@ -70,6 +54,12 @@ public class SubjectManager {
 	 */
 	public ArrayList<SubjectObject> getSubjectList() {
 		return subjectList;
+	}
+	
+	public SubjectObject getSubjectByName(String name) {
+		SubjectObject subjectObject = subjectList.stream().filter(curr -> curr.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
+		
+		return subjectObject;
 	}
 
 }

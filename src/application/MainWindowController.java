@@ -1,9 +1,19 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
+import application.data.SubjectManager;
+import application.data.SubjectObject;
+import application.data.VocabObject;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,12 +26,19 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class MainWindowController {
+	
+	private SubjectManager subjectManager;
+	private SubjectObject subjectObject;
+	
+	private ObservableList<Vocab> vocabs = FXCollections.observableArrayList();
 
     @FXML
     private ResourceBundle resources;
@@ -57,7 +74,16 @@ public class MainWindowController {
     private ListView<String> subjectListView;
 
     @FXML
-    private TableView<String> vocabTableView;
+    private TableView<Vocab> vocabTableView;
+
+    @FXML
+    private TableColumn<Vocab, String> vocabNameTableColumn;
+
+    @FXML
+    private TableColumn<Vocab, String> vocabLevelTableColumn;
+    
+    @FXML
+    private TableColumn<Vocab, String> vocabQuestionTableColumn;
 
     @FXML
     private HBox LactionHBox;
@@ -99,10 +125,10 @@ public class MainWindowController {
     private Button rightButton;
 
     @FXML
-    private Button FalseButton;
+    private Button falseButton;
 
     @FXML
-    private Button OkButton;
+    private Button okButton;
 
     @FXML
     void closeApp(ActionEvent event) {
@@ -143,6 +169,9 @@ public class MainWindowController {
         assert LectionSplitPane != null : "fx:id=\"LectionSplitPane\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert subjectListView != null : "fx:id=\"subjectListView\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert vocabTableView != null : "fx:id=\"vocabTableView\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert vocabQuestionTableColumn != null : "fx:id=\"vocabQuestionTableColumn\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert vocabNameTableColumn != null : "fx:id=\"vocabNameTableColumn\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert vocabLevelTableColumn != null : "fx:id=\"vocabLevelTableColumn\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert LactionHBox != null : "fx:id=\"LactionHBox\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert addButton != null : "fx:id=\"addButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert editButton != null : "fx:id=\"editButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
@@ -156,9 +185,108 @@ public class MainWindowController {
         assert vocabText != null : "fx:id=\"vocabText\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert viewButton != null : "fx:id=\"viewButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert rightButton != null : "fx:id=\"rightButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert FalseButton != null : "fx:id=\"FalseButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert OkButton != null : "fx:id=\"OkButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        
-        subjectListView.getItems().add("Test");
+        assert falseButton != null : "fx:id=\"falseButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert okButton != null : "fx:id=\"okButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
+
+        vocabNameTableColumn.setCellValueFactory(new PropertyValueFactory<Vocab, String>("vocabelName"));
+        vocabLevelTableColumn.setCellValueFactory(new PropertyValueFactory<Vocab, String>("vocabelLevelName"));
+        vocabQuestionTableColumn.setCellValueFactory(new PropertyValueFactory<Vocab, String>("vocabelQuestion"));
+        try {
+			onStart();
+		} catch (NoSuchAlgorithmException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    void onStart() throws NoSuchAlgorithmException, IOException {
+    	subjectManager = new SubjectManager();
+    	subjectManager.getSubjectList().forEach(e -> {
+    		subjectListView.getItems().add(e.getName());
+    	});
+    	
+    	subjectListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+				subjectObject = subjectManager.getSubjectByName(subjectListView.getSelectionModel().getSelectedItem().toString());
+				
+				refreshVocabList();
+			}
+		});
+    }
+    
+    @FXML
+    void addButtonClickListener(ActionEvent event) {
+    	
+    }
+
+    @FXML
+    void deleteButtonClickListener(ActionEvent event) {
+    	
+    }
+
+    @FXML
+    void editButtonClickListener(ActionEvent event) {
+
+    }
+
+    @FXML
+    void exportButtonClickListener(ActionEvent event) {
+
+    }
+
+    @FXML
+    void faultButtonClickListener(ActionEvent event) {
+
+    }
+
+    @FXML
+    void importButtonClickListener(ActionEvent event) {
+
+    }
+
+    @FXML
+    void normalButtonClickListener(ActionEvent event) {
+
+    }
+
+    @FXML
+    void randomButtonClickListener(ActionEvent event) {
+
+    }
+    
+    private void refreshVocabList() {
+    	System.out.println(subjectObject.getVocabList().size());
+    	vocabs = FXCollections.observableArrayList();
+    	subjectObject.getVocabList().forEach(v -> {
+    		vocabs.add(new Vocab(v.getVocab(), v.getLevelName(), v.getQuestion()));
+    	});
+    	vocabTableView.setItems(vocabs);
+    }
+    
+    public static class Vocab{
+    	private final SimpleStringProperty vocabelName;
+    	private final SimpleStringProperty vocabelLevelName;
+    	private final SimpleStringProperty vocabelQuestion;
+    	
+    	public Vocab(String name, String level, String question) {
+    		vocabelName = new SimpleStringProperty(name);
+    		vocabelLevelName = new SimpleStringProperty(level);
+    		vocabelQuestion = new SimpleStringProperty(question);
+    	}
+    	
+    	public String getVocabelName() {
+    		return vocabelName.get();
+    	}
+    	
+    	public String getVocabelLevelName() {
+    		return vocabelLevelName.get();
+    	}
+    	
+    	public String getVocabelQuestion() {
+    		return vocabelQuestion.get();
+    	}
+    	
     }
 }

@@ -3,6 +3,8 @@ package application;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
+import application.data.SubjectManager;
+import application.data.SubjectObject;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -13,7 +15,6 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws NoSuchAlgorithmException, IOException {
-
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
 

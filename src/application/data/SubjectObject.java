@@ -25,12 +25,12 @@ public class SubjectObject {
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
-	public VocabObject createVocab(String vocab) throws NoSuchAlgorithmException {
+	public VocabObject createVocab(String vocab, String question) throws NoSuchAlgorithmException {
 		if (vocab == null || vocab.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
 
-		VocabObject curr = new VocabObject(vocab);
+		VocabObject curr = new VocabObject(vocab, question);
 
 		if (vocabList == null) {
 			throw new IllegalArgumentException();

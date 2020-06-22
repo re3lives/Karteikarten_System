@@ -73,15 +73,16 @@
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <ListView fx:id="subjectListView" editable="true" layoutX="88.0" layoutY="137.0" onEditStart="#loadSubjectListView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <ListView fx:id="subjectListView" layoutX="88.0" layoutY="137.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
                                     <TableView fx:id="vocabTableView" layoutX="334.0" layoutY="124.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columns>
-                                        <TableColumn prefWidth="75.0" text="C1" />
-                                        <TableColumn prefWidth="75.0" text="C2" />
+                                          <TableColumn fx:id="vocabQuestionTableColumn" prefWidth="391.1999939084053" text="Frage" />
+                                        <TableColumn fx:id="vocabNameTableColumn" prefWidth="327.20001220703125" text="Vokabel" />
+                                        <TableColumn fx:id="vocabLevelTableColumn" prefWidth="225.5999755859375" text="Level" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -90,42 +91,42 @@
                         </SplitPane>
                         <HBox fx:id="LactionHBox" layoutX="104.0" layoutY="476.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="476.0">
                            <children>
-                              <Button fx:id="addButton" mnemonicParsing="false" prefWidth="80.0" text="Hinzufügen">
+                              <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonClickListener" prefWidth="80.0" text="Hinzufügen">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="editButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Bearbeiten">
+                              <Button fx:id="editButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#editButtonClickListener" prefWidth="80.0" text="Bearbeiten">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="deleteButton" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Löschen">
+                              <Button fx:id="deleteButton" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteButtonClickListener" prefWidth="80.0" text="Löschen">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="importButton" layoutX="30.0" layoutY="30.0" mnemonicParsing="false" prefWidth="80.0" text="Importieren">
+                              <Button fx:id="importButton" layoutX="30.0" layoutY="30.0" mnemonicParsing="false" onAction="#importButtonClickListener" prefWidth="80.0" text="Importieren">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="40.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="exportButton" layoutX="30.0" layoutY="30.0" mnemonicParsing="false" prefWidth="80.0" text="Exportieren">
+                              <Button fx:id="exportButton" layoutX="30.0" layoutY="30.0" mnemonicParsing="false" onAction="#exportButtonClickListener" prefWidth="80.0" text="Exportieren">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="normalTestButton" layoutX="510.0" layoutY="30.0" mnemonicParsing="false" prefWidth="80.0" text="Normaler Test">
+                              <Button fx:id="normalTestButton" layoutX="510.0" layoutY="30.0" mnemonicParsing="false" onAction="#normalButtonClickListener" prefWidth="80.0" text="Normaler Test">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="40.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="randomTestButton" layoutX="610.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Zufälliger Test">
+                              <Button fx:id="randomTestButton" layoutX="610.0" layoutY="10.0" mnemonicParsing="false" onAction="#randomButtonClickListener" prefWidth="80.0" text="Zufälliger Test">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="faultTestButton" layoutX="610.0" layoutY="10.0" mnemonicParsing="false" prefWidth="80.0" text="Fehler Test">
+                              <Button fx:id="faultTestButton" layoutX="610.0" layoutY="10.0" mnemonicParsing="false" onAction="#faultButtonClickListener" prefWidth="80.0" text="Fehler Test">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>
@@ -149,8 +150,8 @@
                                  <children>
                                     <Button fx:id="viewButton" layoutX="36.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Auflösen" />
                                     <Button fx:id="rightButton" layoutX="891.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Richtig" />
-                                    <Button fx:id="FalseButton" layoutX="1177.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Falsch" />
-                                    <Button fx:id="OkButton" layoutX="1035.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Ok" />
+                                    <Button fx:id="falseButton" layoutX="1177.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Falsch" />
+                                    <Button fx:id="okButton" layoutX="1035.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Ok" />
                                  </children>
                               </AnchorPane>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />

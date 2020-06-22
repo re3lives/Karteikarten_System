@@ -33,14 +33,18 @@ public class FileManager {
 		new File(exportPath).mkdir();
 		FileWriter file = new FileWriter(new File(exportPath, subjectName + ".csv"));
 
+		file.append("VocabQuestion");
+		file.append(",");
 		file.append("VocabString");
 		file.append(",");
 		file.append("Level");
 		file.append("\n");
 
 		for (VocabObject vocab : sub.getVocabList()) {
+			file.append(vocab.getQuestion());
+			file.append(",");
 			file.append(vocab.getVocab());
-			file.append(", ");
+			file.append(",");
 			file.append(vocab.getLevel() + "");
 			file.append("\n");
 		}
@@ -91,9 +95,9 @@ public class FileManager {
 		String row;
 		while ((row = csvReader.readLine()) != null) {
 			String[] data = row.split(",");
-			if (!(data[0].equalsIgnoreCase("vocabstring") && data[1].equalsIgnoreCase("level"))) {
-				VocabObject curr = sub.createVocab(data[0]);
-				curr.setLevel(Short.valueOf(data[1].replaceAll(" ", "")));
+			if (!(data[0].equalsIgnoreCase("vocabquestion") && data[2].equalsIgnoreCase("level"))) {
+				VocabObject curr = sub.createVocab(data[1], data[0]);
+				curr.setLevel(Short.valueOf(data[2].replaceAll(" ", "")));
 			}
 		}
 		csvReader.close();
@@ -114,7 +118,7 @@ public class FileManager {
 			throw new IllegalArgumentException();
 		}
 		ArrayList<SubjectObject> temp = new ArrayList<SubjectObject>();
-		;
+		
 		for (SubjectObject sub : subjectList) {
 			temp.add(loadSubjectObjectFromCSV(sub.getName()));
 		}
@@ -140,7 +144,7 @@ public class FileManager {
 			String row;
 			while ((row = csvReader.readLine()) != null) {
 				String[] data = row.split(",");
-				if (!(data[0].equalsIgnoreCase("SubjectName"))) {
+				if (!(data[0].equalsIgnoreCase("SubjectName")) && !data[0].isEmpty()) {
 					manager.createSubject(data[0]);
 				}
 			}
