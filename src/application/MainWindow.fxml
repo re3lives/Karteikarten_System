@@ -58,7 +58,7 @@
             </Label>
          </children>
       </HBox>
-      <TabPane prefHeight="605.0" prefWidth="1360.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="163.0">
+      <TabPane fx:id="mainTabPane" prefHeight="605.0" prefWidth="1360.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="163.0">
         <tabs>
           <Tab fx:id="overviewTab" text="Übersicht">
             <content>
@@ -148,10 +148,10 @@
                                  </children></AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <Button fx:id="viewButton" layoutX="36.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Auflösen" />
-                                    <Button fx:id="rightButton" layoutX="891.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Richtig" />
-                                    <Button fx:id="falseButton" layoutX="1177.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Falsch" />
-                                    <Button fx:id="okButton" layoutX="1035.0" layoutY="105.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="100.0" text="Ok" />
+                                    <Button fx:id="viewButton" layoutX="36.0" layoutY="105.0" mnemonicParsing="false" onAction="#viewButtonListener" prefHeight="75.0" prefWidth="100.0" text="Auflösen" />
+                                    <Button fx:id="rightButton" layoutX="891.0" layoutY="105.0" mnemonicParsing="false" onAction="#rightButtonListener" prefHeight="75.0" prefWidth="100.0" text="Richtig" />
+                                    <Button fx:id="falseButton" layoutX="1177.0" layoutY="105.0" mnemonicParsing="false" onAction="#wrongButtonListener" prefHeight="75.0" prefWidth="100.0" text="Falsch" />
+                                    <Button fx:id="okButton" layoutX="1035.0" layoutY="105.0" mnemonicParsing="false" onAction="#okButtonListener" prefHeight="75.0" prefWidth="100.0" text="Ok" />
                                  </children>
                               </AnchorPane>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />

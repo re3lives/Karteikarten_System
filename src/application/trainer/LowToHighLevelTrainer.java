@@ -15,7 +15,7 @@ public class LowToHighLevelTrainer extends Trainer {
 	 * Gives next vocab, lowest level first
 	 */
 	@Override
-	VocabObject nextVocab() {
+	public void nextVocab() {
 		VocabObject vocab;
 		vocab = sub.getVocabList().stream().sorted(new Comparator<VocabObject>() {
 
@@ -28,7 +28,6 @@ public class LowToHighLevelTrainer extends Trainer {
 				}
 			}
 		}).findFirst().orElse(null);
-		return vocab;
 	}
 
 }

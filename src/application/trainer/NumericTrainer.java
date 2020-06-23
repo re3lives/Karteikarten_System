@@ -13,7 +13,8 @@ public class NumericTrainer extends Trainer {
 	 * Gives next vocab in numeric order
 	 */
 	@Override
-	VocabObject nextVocab() {
+	public void nextVocab() {
+		System.out.println(sub.getVocabList().size()+"hi");
 		if (curr < sub.getVocabList().size()) {
 
 		} else {
@@ -21,7 +22,6 @@ public class NumericTrainer extends Trainer {
 		}
 		vocab = sub.getVocabList().get(curr);
 		curr += 1;
-		return vocab;
 	}
 
 }

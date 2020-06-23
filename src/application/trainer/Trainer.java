@@ -22,6 +22,8 @@ public abstract class Trainer {
 		if (sub.getVocabList().size() == 0) {
 			throw new IllegalArgumentException("Create vocabs first!");
 		}
+		
+		System.out.println(sub.getVocabList().size());
 
 		this.sub = sub;
 	}
@@ -31,21 +33,20 @@ public abstract class Trainer {
 	 * 
 	 * @return
 	 */
-	abstract VocabObject nextVocab();
+	public abstract void nextVocab();
 
 	/**
 	 * Call if correct
 	 */
 	public void correct() {
 		vocab.levelUp();
-		nextVocab();
 	}
 
 	/**
 	 * Call if ok
 	 */
 	public void ok() {
-		nextVocab();
+
 	}
 
 	/**
@@ -53,6 +54,21 @@ public abstract class Trainer {
 	 */
 	public void wrong() {
 		vocab.levelDown();
-		nextVocab();
+	}
+	
+	/**
+	 * Returns question of current vocab
+	 * @return
+	 */
+	public String getQuestion() {
+		return vocab.getQuestion();
+	}
+	
+	/**
+	 * Returns solution of current vocab
+	 * @return
+	 */
+	public String getSolution() {
+		return vocab.getVocab();
 	}
 }

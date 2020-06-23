@@ -16,9 +16,8 @@ public class RandomTrainer extends Trainer {
 	 * Gives next random vocab
 	 */
 	@Override
-	VocabObject nextVocab() {
+	public void nextVocab() {
 		int r = (rand.nextInt() % sub.getVocabList().size()) - 1;
-		return sub.getVocabList().get(r);
 	}
 
 }
