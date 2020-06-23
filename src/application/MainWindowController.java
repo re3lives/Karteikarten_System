@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 
 import application.data.SubjectManager;
 import application.data.SubjectObject;
-import application.data.VocabObject;
 import application.trainer.NumericTrainer;
 import application.trainer.RandomTrainer;
 import application.trainer.Trainer;
@@ -18,6 +17,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,6 +32,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -206,13 +207,12 @@ public class MainWindowController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
 	void onStart() throws NoSuchAlgorithmException, IOException {
 		subjectManager = new SubjectManager();
-		subjectManager.getSubjectList().forEach(e -> {
-			subjectListView.getItems().add(e.getName());
-		});
+		refreshSubjects();
 
 		subjectListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
@@ -227,16 +227,16 @@ public class MainWindowController {
 				randomTestButton.setDisable(false);
 			}
 		});
-		
+
 		mainTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 
-		    @Override
-		    public void changed(ObservableValue<? extends Tab> observable, Tab oldTab, Tab newTab) {
-		        if(newTab == lectionsTab) {
-		            	
-		            }
-		        }
-		    });
+			@Override
+			public void changed(ObservableValue<? extends Tab> observable, Tab oldTab, Tab newTab) {
+				if (newTab == lectionsTab) {
+
+				}
+			}
+		});
 	}
 
 	@FXML
@@ -249,9 +249,74 @@ public class MainWindowController {
 			Stage stage = new Stage();
 			stage.setTitle("Hinzufügen");
 			stage.setScene(scene);
+
+			updateDialogLayout(scene);
+
+			Button okButton = (Button) scene.lookup("#okButton");
+			okButton.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent arg0) {
+					TextField answerTextField = (TextField) scene.lookup("#answerTextField");
+					TextField questionTextField = (TextField) scene.lookup("#questionTextField");
+					try {
+						if (subjectObject == null && !answerTextField.getText().isEmpty()) {
+							subjectObject = subjectManager.createSubject(answerTextField.getText());
+							refreshSubjects();
+						} else if (!answerTextField.getText().isEmpty() && !questionTextField.getText().isEmpty()) {
+							subjectObject.createVocab(answerTextField.getText(), questionTextField.getText());
+							refreshVocabList();
+						}
+						updateDialogLayout(scene);
+					} catch (NoSuchAlgorithmException e) {
+						e.printStackTrace();
+					}
+					answerTextField.setText("");
+					questionTextField.setText("");
+					updateDialogLayout(scene);
+				}
+			});
+
+			Button cancelButton = (Button) scene.lookup("#cancelButton");
+			cancelButton.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent arg0) {
+					stage.close();
+
+				}
+			});
+
 			stage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	private void updateDialogLayout(Scene scene) {
+		if (subjectObject == null) {
+			Text mainText = (Text) scene.lookup("#mainText");
+			mainText.setText("Erstelle ein neues Thema:");
+
+			Text firstText = (Text) scene.lookup("#firstText");
+			firstText.setText("Name: ");
+
+			Text secondText = (Text) scene.lookup("#secondText");
+			secondText.setVisible(false);
+			TextField questionTextField = (TextField) scene.lookup("#questionTextField");
+			questionTextField.setVisible(false);
+		} else {
+			Text mainText = (Text) scene.lookup("#mainText");
+			mainText.setText("Erstelle eine neue Vokabel:");
+
+			Text firstText = (Text) scene.lookup("#firstText");
+			firstText.setText("Frage: ");
+
+			Text secondText = (Text) scene.lookup("#secondText");
+			secondText.setVisible(true);
+			secondText.setText("Antwort: ");
+			TextField questionTextField = (TextField) scene.lookup("#questionTextField");
+			questionTextField.setVisible(true);
 		}
 	}
 
@@ -278,7 +343,7 @@ public class MainWindowController {
 
 	@FXML
 	void importButtonClickListener(ActionEvent event) {
-		
+
 	}
 
 	@FXML
@@ -331,55 +396,66 @@ public class MainWindowController {
 		nextVocab();
 	}
 
-    @FXML
-    void viewButtonListener(ActionEvent event) {
-    	vocabText.setText(trainer.getSolution());
-    	falseButton.setVisible(true);
-    	falseButton.setDisable(false);
-    	
-    	okButton.setVisible(true);
-    	okButton.setDisable(false);
-    	
-    	rightButton.setVisible(true);
-    	rightButton.setDisable(false);
-    	
-    	viewButton.setVisible(false);
-    	viewButton.setDisable(true);
-    }
+	@FXML
+	void viewButtonListener(ActionEvent event) {
+		vocabText.setText(trainer.getSolution());
+		falseButton.setVisible(true);
+		falseButton.setDisable(false);
 
-    @FXML
-    void wrongButtonListener(ActionEvent event) {
-    	trainer.wrong();
-    	nextVocab();
-    }
-    
-    @FXML
-    void okButtonListener(ActionEvent event) {
-    	trainer.ok();
-    	nextVocab();
-    }
-    
-    @FXML
-    void rightButtonListener(ActionEvent event) {
-    	trainer.correct();
-    	nextVocab();
-    }
-    
-    private void nextVocab() {
-    	trainer.nextVocab();
-    	vocabText.setText(trainer.getQuestion());
-    	
-    	falseButton.setVisible(false);
-    	falseButton.setDisable(true);
-    	
-    	okButton.setVisible(false);
-    	okButton.setDisable(true);
-    	
-    	rightButton.setVisible(false);
-    	rightButton.setDisable(true);
-    	
-    	viewButton.setVisible(true);
-    	viewButton.setDisable(false);
-    	refreshVocabList();
-    }
+		okButton.setVisible(true);
+		okButton.setDisable(false);
+
+		rightButton.setVisible(true);
+		rightButton.setDisable(false);
+
+		viewButton.setVisible(false);
+		viewButton.setDisable(true);
+	}
+
+	@FXML
+	void wrongButtonListener(ActionEvent event) {
+		trainer.wrong();
+		nextVocab();
+	}
+
+	@FXML
+	void okButtonListener(ActionEvent event) {
+		trainer.ok();
+		nextVocab();
+	}
+
+	@FXML
+	void rightButtonListener(ActionEvent event) {
+		trainer.correct();
+		nextVocab();
+	}
+
+	private void nextVocab() {
+		trainer.nextVocab();
+		vocabText.setText(trainer.getQuestion());
+
+		falseButton.setVisible(false);
+		falseButton.setDisable(true);
+
+		okButton.setVisible(false);
+		okButton.setDisable(true);
+
+		rightButton.setVisible(false);
+		rightButton.setDisable(true);
+
+		viewButton.setVisible(true);
+		viewButton.setDisable(false);
+		refreshVocabList();
+	}
+
+	private void refreshSubjects() {
+		subjectListView.getItems().clear();
+		subjectManager.getSubjectList().forEach(e -> {
+			subjectListView.getItems().add(e.getName());
+		});
+	}
+	
+	private void save() throws IOException {
+		subjectManager.onClose();
+	}
 }
