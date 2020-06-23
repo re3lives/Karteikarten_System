@@ -222,8 +222,21 @@ public class MainWindowController {
 						.getSubjectByName(subjectListView.getSelectionModel().getSelectedItem().toString());
 
 				refreshVocabList();
+				faultTestButton.setDisable(false);
+				normalTestButton.setDisable(false);
+				randomTestButton.setDisable(false);
 			}
 		});
+		
+		mainTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+
+		    @Override
+		    public void changed(ObservableValue<? extends Tab> observable, Tab oldTab, Tab newTab) {
+		        if(newTab == lectionsTab) {
+		            	
+		            }
+		        }
+		    });
 	}
 
 	@FXML

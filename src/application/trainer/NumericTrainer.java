@@ -1,7 +1,6 @@
 package application.trainer;
 
 import application.data.SubjectObject;
-import application.data.VocabObject;
 
 public class NumericTrainer extends Trainer {
 
@@ -14,7 +13,6 @@ public class NumericTrainer extends Trainer {
 	 */
 	@Override
 	public void nextVocab() {
-		System.out.println(sub.getVocabList().size()+"hi");
 		if (curr < sub.getVocabList().size()) {
 
 		} else {

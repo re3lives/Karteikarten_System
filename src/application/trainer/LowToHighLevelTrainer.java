@@ -16,7 +16,6 @@ public class LowToHighLevelTrainer extends Trainer {
 	 */
 	@Override
 	public void nextVocab() {
-		VocabObject vocab;
 		vocab = sub.getVocabList().stream().sorted(new Comparator<VocabObject>() {
 
 			@Override

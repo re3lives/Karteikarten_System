@@ -116,17 +116,17 @@
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="normalTestButton" layoutX="510.0" layoutY="30.0" mnemonicParsing="false" onAction="#normalButtonClickListener" prefWidth="80.0" text="Normaler Test">
+                              <Button fx:id="normalTestButton" disable="true" layoutX="510.0" layoutY="30.0" mnemonicParsing="false" onAction="#normalButtonClickListener" prefWidth="80.0" text="Normaler Test">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="40.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="randomTestButton" layoutX="610.0" layoutY="10.0" mnemonicParsing="false" onAction="#randomButtonClickListener" prefWidth="80.0" text="Zufälliger Test">
+                              <Button fx:id="randomTestButton" disable="true" layoutX="610.0" layoutY="10.0" mnemonicParsing="false" onAction="#randomButtonClickListener" prefWidth="80.0" text="Zufälliger Test">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="faultTestButton" layoutX="610.0" layoutY="10.0" mnemonicParsing="false" onAction="#faultButtonClickListener" prefWidth="80.0" text="Fehler Test">
+                              <Button fx:id="faultTestButton" disable="true" layoutX="610.0" layoutY="10.0" mnemonicParsing="false" onAction="#faultButtonClickListener" prefWidth="80.0" text="Fehler Test">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </HBox.margin>

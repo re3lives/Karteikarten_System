@@ -22,8 +22,6 @@ public abstract class Trainer {
 		if (sub.getVocabList().size() == 0) {
 			throw new IllegalArgumentException("Create vocabs first!");
 		}
-		
-		System.out.println(sub.getVocabList().size());
 
 		this.sub = sub;
 	}
