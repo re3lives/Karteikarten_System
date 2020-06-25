@@ -8,6 +8,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * VocabEditor controller
+ * @author lumag
+ *
+ */
 public class VocabEditorWindowController {
 
     @FXML
@@ -42,6 +47,10 @@ public class VocabEditorWindowController {
     	
     }
     
+    /**
+     * Cancel button eventhandler
+     * @param event
+     */
     @FXML
     void cancelButtonClickListener(ActionEvent event) {
     	Stage stage = (Stage) cancelButton.getScene().getWindow();
@@ -49,6 +58,9 @@ public class VocabEditorWindowController {
         
     }
 
+    /**
+     * Init vocabeditor
+     */
     @FXML
     void initialize() {
         assert mainText != null : "fx:id=\"mainText\" was not injected: check your FXML file 'vocabEditorWindow.fxml'.";

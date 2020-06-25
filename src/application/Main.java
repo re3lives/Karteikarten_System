@@ -11,8 +11,16 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+/**
+ * Main Class
+ * @author lumag
+ *
+ */
 public class Main extends Application {
 
+	/**
+	 * Generates window
+	 */
 	@Override
 	public void start(Stage primaryStage) throws NoSuchAlgorithmException, IOException {
 		try {

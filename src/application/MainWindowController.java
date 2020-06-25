@@ -35,6 +35,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * MainWindowController class
+ * @author lumag
+ *
+ */
 public class MainWindowController {
 
 	private SubjectManager subjectManager;
@@ -163,6 +168,10 @@ public class MainWindowController {
 		}
 	}
 
+	/**
+	 * Initialize WindowController
+	 */
+	
 	@FXML
 	void initialize() {
 		assert mainMenuBar != null : "fx:id=\"mainMenuBar\" was not injected: check your FXML file 'MainWindow.fxml'.";
@@ -195,9 +204,6 @@ public class MainWindowController {
 		assert okButton != null : "fx:id=\"okButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
 		assert mainTabPane != null : "fx:id=\"mainTabPane\" was not injected: check your FXML file 'MainWindow.fxml'.";
 
-		vocabNameTableColumn.setCellValueFactory(new PropertyValueFactory<Vocab, String>("vocabelName"));
-		vocabLevelTableColumn.setCellValueFactory(new PropertyValueFactory<Vocab, String>("vocabelLevelName"));
-		vocabQuestionTableColumn.setCellValueFactory(new PropertyValueFactory<Vocab, String>("vocabelQuestion"));
 		try {
 			onStart();
 		} catch (NoSuchAlgorithmException | IOException e) {
@@ -207,7 +213,17 @@ public class MainWindowController {
 		
 	}
 
+	/**
+	 * Start Methode
+	 * @throws NoSuchAlgorithmException
+	 * @throws IOException
+	 */
+	
 	void onStart() throws NoSuchAlgorithmException, IOException {
+		vocabNameTableColumn.setCellValueFactory(new PropertyValueFactory<Vocab, String>("vocabelName"));
+		vocabLevelTableColumn.setCellValueFactory(new PropertyValueFactory<Vocab, String>("vocabelLevelName"));
+		vocabQuestionTableColumn.setCellValueFactory(new PropertyValueFactory<Vocab, String>("vocabelQuestion"));
+		
 		subjectManager = new SubjectManager();
 		refreshSubjects();
 		
@@ -231,12 +247,20 @@ public class MainWindowController {
 			deleteButton.setDisable(false);
 		});
 	}
+	
+	/**
+	 * Add button click eventhandler
+	 * @param event
+	 */
 
 	@FXML
 	void addButtonClickListener(ActionEvent event) {
 		openAddDialog();
 	}
 
+	/**
+	 * Opens add Dialog, gives functions to buttons of add dialog
+	 */
 	private void openAddDialog() {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("vocabEditorWindow.fxml"));
@@ -279,6 +303,11 @@ public class MainWindowController {
 		}
 	}
 	
+	/**
+	 * Updates Layout for add mode, switches between subject and vocab add mode,
+	 * if subject is null
+	 * @param scene
+	 */
 	private void updateDialogLayoutToAddMode(Scene scene) {
 		TextField answerTextField = (TextField) scene.lookup("#questionTextField");
 		TextField questionTextField = (TextField) scene.lookup("#questionTextField");
@@ -309,6 +338,11 @@ public class MainWindowController {
 		questionTextField.setText("");
 	}
 
+	/**
+	 * Delete button eventhandler, that deletes vocab
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void deleteButtonClickListener(ActionEvent event) throws IOException {
 		if(vocabTableView.getSelectionModel().getSelectedItem() != null) {
@@ -317,11 +351,18 @@ public class MainWindowController {
 		}
 	}
 
+	/**
+	 * Edit button click eventhandler
+	 * @param event
+	 */
 	@FXML
 	void editButtonClickListener(ActionEvent event) {
 		openEditDialog();
 	}
 	
+	/**
+	 * Opens editdialog, gives functions to buttons of editdialog -> VocabEditorWindow
+	 */
 	private void openEditDialog() {
 		Parent root;
 		try {
@@ -361,6 +402,10 @@ public class MainWindowController {
 		}
 	}
 	
+	/**
+	 * Updates dialog to edit mode
+	 * @param scene
+	 */
 	private void updateDialogToEditMode(Scene scene) {
 		TextField answerTextField = (TextField) scene.lookup("#answerTextField");
 		TextField questionTextField = (TextField) scene.lookup("#questionTextField");
@@ -380,34 +425,61 @@ public class MainWindowController {
 		questionTextField.setText(vocabTableView.getSelectionModel().getSelectedItem().getVocabelQuestion());
 	}
 
+	/**
+	 * Export todo
+	 * @param event
+	 */
 	@FXML
 	void exportButtonClickListener(ActionEvent event) {
-
+		// TODO Export to user specific path
 	}
 
+	/**
+	 * Fault button eventhandler
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void faultButtonClickListener(ActionEvent event) throws IOException {
 		trainer = new NumericTrainer(subjectObject);
 		switchTestMode();
 	}
 
+	/**
+	 * Export todo
+	 * @param event
+	 */
 	@FXML
 	void importButtonClickListener(ActionEvent event) {
-
+		//TODO Import user specific file
 	}
 
+	/**
+	 * Normal button eventhandler
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void normalButtonClickListener(ActionEvent event) throws IOException {
 		trainer = new NumericTrainer(subjectObject);
 		switchTestMode();
 	}
 
+	/**
+	 * Random button eventhandler
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void randomButtonClickListener(ActionEvent event) throws IOException {
 		trainer = new RandomTrainer(subjectObject);
 		switchTestMode();
 	}
 
+	/**
+	 * Refreshes vocablist, updates view to current content of selected subject
+	 * @throws IOException
+	 */
 	private void refreshVocabList() throws IOException {
 		vocabs = FXCollections.observableArrayList();
 		subjectObject.getVocabList().forEach(v -> {
@@ -417,7 +489,12 @@ public class MainWindowController {
 		save();
 	}
 
-	public static class Vocab {
+	/**
+	 * For tableview
+	 * @author lumag
+	 *
+	 */
+	private static class Vocab {
 		private final SimpleStringProperty vocabelName;
 		private final SimpleStringProperty vocabelLevelName;
 		private final SimpleStringProperty vocabelQuestion;
@@ -442,11 +519,19 @@ public class MainWindowController {
 
 	}
 
+	/**
+	 * Switches to testmode
+	 * @throws IOException
+	 */
 	private void switchTestMode() throws IOException {
 		mainTabPane.getSelectionModel().select(testTab);
 		nextVocab();
 	}
 
+	/**
+	 * View button eventhandler
+	 * @param event
+	 */
 	@FXML
 	void viewButtonListener(ActionEvent event) {
 		vocabText.setText(trainer.getSolution());
@@ -463,24 +548,43 @@ public class MainWindowController {
 		viewButton.setDisable(true);
 	}
 
+	/**
+	 * Wrong button eventhandler
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void wrongButtonListener(ActionEvent event) throws IOException {
 		trainer.wrong();
 		nextVocab();
 	}
 
+	/**
+	 * Ok button eventhandler
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void okButtonListener(ActionEvent event) throws IOException {
 		trainer.ok();
 		nextVocab();
 	}
 
+	/**
+	 * Right button eventhandler
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void rightButtonListener(ActionEvent event) throws IOException {
 		trainer.correct();
 		nextVocab();
 	}
 
+	/**
+	 * gives next vocab, resets buttons in testtab
+	 * @throws IOException
+	 */
 	private void nextVocab() throws IOException {
 		trainer.nextVocab();
 		vocabText.setText(trainer.getQuestion());
@@ -499,6 +603,9 @@ public class MainWindowController {
 		refreshVocabList();
 	}
 
+	/**
+	 * Refreshes subject list
+	 */
 	private void refreshSubjects() {
 		subjectListView.getItems().clear();
 		subjectManager.getSubjectList().forEach(e -> {
