@@ -12,12 +12,9 @@ import application.trainer.RandomTrainer;
 import application.trainer.Trainer;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -213,34 +210,34 @@ public class MainWindowController {
 	void onStart() throws NoSuchAlgorithmException, IOException {
 		subjectManager = new SubjectManager();
 		refreshSubjects();
+		
+		subjectListView.getSelectionModel().selectedItemProperty().addListener(c -> {
+			subjectObject = subjectManager
+					.getSubjectByName(subjectListView.getSelectionModel().getSelectedItem().toString());
 
-		subjectListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
-			@Override
-			public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-				subjectObject = subjectManager
-						.getSubjectByName(subjectListView.getSelectionModel().getSelectedItem().toString());
-
+			try {
 				refreshVocabList();
-				faultTestButton.setDisable(false);
-				normalTestButton.setDisable(false);
-				randomTestButton.setDisable(false);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			faultTestButton.setDisable(false);
+			normalTestButton.setDisable(false);
+			randomTestButton.setDisable(false);
 		});
-
-		mainTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Tab> observable, Tab oldTab, Tab newTab) {
-				if (newTab == lectionsTab) {
-
-				}
-			}
+		
+		vocabTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			editButton.setDisable(false);
+			deleteButton.setDisable(false);
 		});
 	}
 
 	@FXML
 	void addButtonClickListener(ActionEvent event) {
+		openAddDialog();
+	}
+
+	private void openAddDialog() {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("vocabEditorWindow.fxml"));
 
@@ -250,13 +247,10 @@ public class MainWindowController {
 			stage.setTitle("Hinzufügen");
 			stage.setScene(scene);
 
-			updateDialogLayout(scene);
+			updateDialogLayoutToAddMode(scene);
 
 			Button okButton = (Button) scene.lookup("#okButton");
-			okButton.setOnAction(new EventHandler<ActionEvent>() {
-
-				@Override
-				public void handle(ActionEvent arg0) {
+			okButton.setOnAction(event-> {
 					TextField answerTextField = (TextField) scene.lookup("#answerTextField");
 					TextField questionTextField = (TextField) scene.lookup("#questionTextField");
 					try {
@@ -267,33 +261,27 @@ public class MainWindowController {
 							subjectObject.createVocab(answerTextField.getText(), questionTextField.getText());
 							refreshVocabList();
 						}
-						updateDialogLayout(scene);
-					} catch (NoSuchAlgorithmException e) {
+						updateDialogLayoutToAddMode(scene);
+						
+					} catch (NoSuchAlgorithmException | IOException e) {
 						e.printStackTrace();
 					}
-					answerTextField.setText("");
-					questionTextField.setText("");
-					updateDialogLayout(scene);
-				}
+					updateDialogLayoutToAddMode(scene);
 			});
 
+			
 			Button cancelButton = (Button) scene.lookup("#cancelButton");
-			cancelButton.setOnAction(new EventHandler<ActionEvent>() {
-
-				@Override
-				public void handle(ActionEvent arg0) {
-					stage.close();
-
-				}
-			});
-
+			cancelButton.setOnAction(e-> stage.close());
+			
 			stage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
-	private void updateDialogLayout(Scene scene) {
+	
+	private void updateDialogLayoutToAddMode(Scene scene) {
+		TextField answerTextField = (TextField) scene.lookup("#questionTextField");
+		TextField questionTextField = (TextField) scene.lookup("#questionTextField");
 		if (subjectObject == null) {
 			Text mainText = (Text) scene.lookup("#mainText");
 			mainText.setText("Erstelle ein neues Thema:");
@@ -303,7 +291,6 @@ public class MainWindowController {
 
 			Text secondText = (Text) scene.lookup("#secondText");
 			secondText.setVisible(false);
-			TextField questionTextField = (TextField) scene.lookup("#questionTextField");
 			questionTextField.setVisible(false);
 		} else {
 			Text mainText = (Text) scene.lookup("#mainText");
@@ -315,19 +302,82 @@ public class MainWindowController {
 			Text secondText = (Text) scene.lookup("#secondText");
 			secondText.setVisible(true);
 			secondText.setText("Antwort: ");
-			TextField questionTextField = (TextField) scene.lookup("#questionTextField");
 			questionTextField.setVisible(true);
+		}
+		
+		answerTextField.setText("");
+		questionTextField.setText("");
+	}
+
+	@FXML
+	void deleteButtonClickListener(ActionEvent event) throws IOException {
+		if(vocabTableView.getSelectionModel().getSelectedItem() != null) {
+			subjectObject.removeVocab(vocabTableView.getSelectionModel().getSelectedItem().getVocabelName());
+			refreshVocabList();
 		}
 	}
 
 	@FXML
-	void deleteButtonClickListener(ActionEvent event) {
-
-	}
-
-	@FXML
 	void editButtonClickListener(ActionEvent event) {
+		openEditDialog();
+	}
+	
+	private void openEditDialog() {
+		Parent root;
+		try {
+			if(vocabTableView.getSelectionModel().getSelectedItem() != null) {
+				root = FXMLLoader.load(getClass().getResource("vocabEditorWindow.fxml"));
 
+				Scene scene = new Scene(root);
+
+				Stage stage = new Stage();
+				stage.setTitle("Bearbeiten");
+				stage.setScene(scene);
+
+				updateDialogToEditMode(scene);
+				
+				Button cancelButton = (Button) scene.lookup("#cancelButton");
+				cancelButton.setOnAction(e-> stage.close());
+				
+				Button okButton = (Button) scene.lookup("#okButton");
+				okButton.setOnAction(e -> {
+					TextField answerTextField = (TextField) scene.lookup("#answerTextField");
+					TextField questionTextField = (TextField) scene.lookup("#questionTextField");
+					
+					subjectObject.editVocab(vocabTableView.getSelectionModel().getSelectedItem().getVocabelName(), answerTextField.getText(), questionTextField.getText());
+					stage.close();
+					try {
+						refreshVocabList();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				});
+				
+				stage.show();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void updateDialogToEditMode(Scene scene) {
+		TextField answerTextField = (TextField) scene.lookup("#answerTextField");
+		TextField questionTextField = (TextField) scene.lookup("#questionTextField");
+		
+		Text mainText = (Text) scene.lookup("#mainText");
+		mainText.setText("Bearbeite die Vokabel:");
+
+		Text firstText = (Text) scene.lookup("#firstText");
+		firstText.setText("Frage: ");
+
+		Text secondText = (Text) scene.lookup("#secondText");
+		secondText.setText("Antwort: ");
+		secondText.setVisible(true);
+		questionTextField.setVisible(true);
+		
+		answerTextField.setText(vocabTableView.getSelectionModel().getSelectedItem().getVocabelName());
+		questionTextField.setText(vocabTableView.getSelectionModel().getSelectedItem().getVocabelQuestion());
 	}
 
 	@FXML
@@ -336,7 +386,7 @@ public class MainWindowController {
 	}
 
 	@FXML
-	void faultButtonClickListener(ActionEvent event) {
+	void faultButtonClickListener(ActionEvent event) throws IOException {
 		trainer = new NumericTrainer(subjectObject);
 		switchTestMode();
 	}
@@ -347,23 +397,24 @@ public class MainWindowController {
 	}
 
 	@FXML
-	void normalButtonClickListener(ActionEvent event) {
+	void normalButtonClickListener(ActionEvent event) throws IOException {
 		trainer = new NumericTrainer(subjectObject);
 		switchTestMode();
 	}
 
 	@FXML
-	void randomButtonClickListener(ActionEvent event) {
+	void randomButtonClickListener(ActionEvent event) throws IOException {
 		trainer = new RandomTrainer(subjectObject);
 		switchTestMode();
 	}
 
-	private void refreshVocabList() {
+	private void refreshVocabList() throws IOException {
 		vocabs = FXCollections.observableArrayList();
 		subjectObject.getVocabList().forEach(v -> {
 			vocabs.add(new Vocab(v.getVocab(), v.getLevelName(), v.getQuestion()));
 		});
 		vocabTableView.setItems(vocabs);
+		save();
 	}
 
 	public static class Vocab {
@@ -391,7 +442,7 @@ public class MainWindowController {
 
 	}
 
-	private void switchTestMode() {
+	private void switchTestMode() throws IOException {
 		mainTabPane.getSelectionModel().select(testTab);
 		nextVocab();
 	}
@@ -413,24 +464,24 @@ public class MainWindowController {
 	}
 
 	@FXML
-	void wrongButtonListener(ActionEvent event) {
+	void wrongButtonListener(ActionEvent event) throws IOException {
 		trainer.wrong();
 		nextVocab();
 	}
 
 	@FXML
-	void okButtonListener(ActionEvent event) {
+	void okButtonListener(ActionEvent event) throws IOException {
 		trainer.ok();
 		nextVocab();
 	}
 
 	@FXML
-	void rightButtonListener(ActionEvent event) {
+	void rightButtonListener(ActionEvent event) throws IOException {
 		trainer.correct();
 		nextVocab();
 	}
 
-	private void nextVocab() {
+	private void nextVocab() throws IOException {
 		trainer.nextVocab();
 		vocabText.setText(trainer.getQuestion());
 
@@ -453,6 +504,9 @@ public class MainWindowController {
 		subjectManager.getSubjectList().forEach(e -> {
 			subjectListView.getItems().add(e.getName());
 		});
+		
+		editButton.setDisable(true);
+		deleteButton.setDisable(true);
 	}
 	
 	private void save() throws IOException {

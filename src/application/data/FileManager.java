@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
@@ -31,8 +32,10 @@ public class FileManager {
 			throw new IllegalArgumentException();
 		}
 		new File(exportPath).mkdir();
-		FileWriter file = new FileWriter(new File(exportPath, subjectName + ".csv"));
-
+		File f = new File(exportPath, subjectName+".csv");
+		Files.deleteIfExists(f.toPath());
+		FileWriter file = new FileWriter(f);
+		
 		file.append("VocabQuestion");
 		file.append(",");
 		file.append("VocabString");

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class VocabEditorWindowController {
 
@@ -39,6 +40,13 @@ public class VocabEditorWindowController {
     @FXML
     void okButtonClickListener(ActionEvent event) {
     	
+    }
+    
+    @FXML
+    void cancelButtonClickListener(ActionEvent event) {
+    	Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
+        
     }
 
     @FXML

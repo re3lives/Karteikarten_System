@@ -31,11 +31,12 @@ public class VocabObject extends LevelObject{
 	 * 
 	 * @param vocab
 	 */
-	public void setVocab(String vocab) {
-		if (vocab == null || vocab.isEmpty()) {
+	public void setVocab(String vocab, String question) {
+		if (vocab == null || vocab.isEmpty() || question == null || question.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
 		this.vocab = vocab;
+		this.question = question;
 	}
 
 	/**

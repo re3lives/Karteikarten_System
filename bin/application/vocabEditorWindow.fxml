@@ -24,7 +24,7 @@
                   </Button>
                </right>
                <left>
-                  <Button fx:id="cancelButton" mnemonicParsing="false" text="Beenden" BorderPane.alignment="CENTER">
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonClickListener" text="Beenden" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets left="20.0" />
                      </BorderPane.margin>

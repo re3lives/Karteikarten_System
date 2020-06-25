@@ -62,12 +62,12 @@ public class SubjectObject {
 	 * @param id
 	 * @param newVocab
 	 */
-	public void editVocab(String oldVocab, String newVocab) {
-		if (oldVocab == null || newVocab == null || oldVocab.isEmpty() || newVocab.isEmpty()) {
+	public void editVocab(String oldVocab, String newVocab, String newQuestion) {
+		if (oldVocab == null || newVocab == null || oldVocab.isEmpty() || newVocab.isEmpty() || newQuestion == null || newQuestion.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
 		VocabObject vocab = findVocabByString(oldVocab);
-		vocab.setVocab(newVocab);
+		vocab.setVocab(newVocab, newQuestion);
 	}
 
 	/**
