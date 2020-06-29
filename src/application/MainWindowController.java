@@ -494,7 +494,7 @@ public class MainWindowController {
 	 * @author lumag
 	 *
 	 */
-	private static class Vocab {
+	public static class Vocab {
 		private final SimpleStringProperty vocabelName;
 		private final SimpleStringProperty vocabelLevelName;
 		private final SimpleStringProperty vocabelQuestion;
