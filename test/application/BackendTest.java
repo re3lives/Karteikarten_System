@@ -2,9 +2,6 @@ package application;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -13,10 +10,15 @@ import application.data.LevelObject;
 
 class BackendTest {
 
-	//Level
+	/**
+	 * Alle Tests für die Level
+	 */
 	@Nested
 	@DisplayName("Level Tests")
 	class levelTests {
+		/**
+		 * Erstellt ein Level
+		 */
 		@Test
 		@DisplayName("Create Level")
 		void testCreate() {
@@ -24,6 +26,10 @@ class BackendTest {
 			assertEquals(0, levelObject.getLevel());
 		}
 		
+		
+		/**
+		 * Führt einen levelUp durch
+		 */
 		@Test
 		@DisplayName("Level upTest")
 		void testLevelUp() {
@@ -34,32 +40,66 @@ class BackendTest {
 	}
 	
 	
-	//Vocab
+	
+	/**
+	 * Alle Tests für Vocabeln
+	 */
 	@Nested
 	@DisplayName("Vocab Tests")
 	class vocabTests{
 		
 	}
 	
-	//Subject
+	/**
+	 * Alle Tests für Subjects
+	 */
 	@Nested
 	@DisplayName("Subject Tests")
 	class subjectTests{
 		
 	}
 	
-	//SubjectManager
+	/**
+	 * Alle Tests für SubjectManager
+	 */
 	@Nested
 	@DisplayName("SubjectManager Tests")
 	class subjectManagerTests{
 		
 	}
 	
-	//Trainer
+	/**
+	 * Alle Tests für Trainer
+	 */
 	@Nested
 	@DisplayName("Trainer Tests")
 	class trainerTests{
+		/**
+		 * Alle Tests für LowToHighLevelTrainer
+		 */
+		@Nested
+		@DisplayName("LowToHighLevelTrainer Tests")
+		class lowToHighLevelTrainerTests{
+			
+		}
 		
+		/**
+		 * Alle Tests für NumericTrainer
+		 */
+		@Nested
+		@DisplayName("NumericTrainer Tests")
+		class numericTrainerTests{
+			
+		}
+		
+		/**
+		 * Alle Tests für RandomLevelTrainer
+		 */
+		@Nested
+		@DisplayName("RandomLevelTrainer Tests")
+		class randomLevelTrainerTests{
+			
+		}
 	}
 
 }
