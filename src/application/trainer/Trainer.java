@@ -12,7 +12,7 @@ public abstract class Trainer {
 	/**
 	 * Constructor to init subject as current vocab list
 	 * 
-	 * @param sub
+	 * @param sub Subject to train with
 	 */
 	public Trainer(SubjectObject sub) {
 		if (sub == null) {
@@ -28,8 +28,6 @@ public abstract class Trainer {
 
 	/**
 	 * Gives next vocab
-	 * 
-	 * @return
 	 */
 	public abstract void nextVocab();
 
@@ -56,7 +54,7 @@ public abstract class Trainer {
 	
 	/**
 	 * Returns question of current vocab
-	 * @return
+	 * @return Question for current object
 	 */
 	public String getQuestion() {
 		return vocab.getQuestion();
@@ -64,7 +62,7 @@ public abstract class Trainer {
 	
 	/**
 	 * Returns solution of current vocab
-	 * @return
+	 * @return String with solution
 	 */
 	public String getSolution() {
 		return vocab.getVocab();

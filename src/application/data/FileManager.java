@@ -21,18 +21,15 @@ public class FileManager {
 	/**
 	 * Save SubjectObject to csv
 	 * 
-	 * @param sub
-	 * @param path
-	 * @param filename
-	 * @return
-	 * @throws IOException
+	 * @param sub Subject to save
+	 * @throws IOException File not written
 	 */
-	public void saveSubjectObjectToCSV(SubjectObject sub, String subjectName) throws IOException {
-		if (sub == null || subjectName == null || subjectName.isEmpty()) {
+	public void saveSubjectObjectToCSV(SubjectObject sub) throws IOException {
+		if (sub == null) {
 			throw new IllegalArgumentException();
 		}
 		new File(exportPath).mkdir();
-		File f = new File(exportPath, subjectName+".csv");
+		File f = new File(exportPath, sub.getName()+".csv");
 		Files.deleteIfExists(f.toPath());
 		FileWriter file = new FileWriter(f);
 		
@@ -58,8 +55,8 @@ public class FileManager {
 	/**
 	 * Save SubjectManager to csv
 	 * 
-	 * @param subManager
-	 * @throws IOException
+	 * @param subManager subjectManager to safe
+	 * @throws IOException File not written
 	 */
 	public void saveSubjectManagerToCSV(SubjectManager subManager) throws IOException {
 		if (subManager == null) {
@@ -82,11 +79,10 @@ public class FileManager {
 	/**
 	 * Loads subject from csv
 	 * 
-	 * @param path
-	 * @param filename
-	 * @return
-	 * @throws IOException
-	 * @throws NoSuchAlgorithmException
+	 * @param subjectName Name of subject
+	 * @return SubjectsObject that was loaded
+	 * @throws IOException Error during file read
+	 * @throws NoSuchAlgorithmException Hash Error
 	 */
 	public SubjectObject loadSubjectObjectFromCSV(String subjectName) throws IOException, NoSuchAlgorithmException {
 		if (subjectName == null || subjectName.isEmpty()) {
@@ -110,10 +106,10 @@ public class FileManager {
 	/**
 	 * Loads all subjects from csv
 	 * 
-	 * @param subjectList
-	 * @return
-	 * @throws NoSuchAlgorithmException
-	 * @throws IOException
+	 * @param subjectList list of subjects to load
+	 * @return List with loaded subjectobjects
+	 * @throws NoSuchAlgorithmException Error while generate hash
+	 * @throws IOException IO
 	 */
 	public ArrayList<SubjectObject> loadAllSubjectObjectsFromCSV(ArrayList<SubjectObject> subjectList)
 			throws NoSuchAlgorithmException, IOException {
@@ -132,9 +128,11 @@ public class FileManager {
 	/**
 	 * Loads SubjectManager from csv
 	 * 
-	 * @return
-	 * @throws IOException
-	 * @throws NoSuchAlgorithmException
+	 * @param manager SubjectManager to load
+	 * 
+	 * @return Loaded subjectmanager
+	 * @throws IOException IO
+	 * @throws NoSuchAlgorithmException Error while generate hash
 	 */
 	public SubjectManager loadSubjectManagerFromCSV(SubjectManager manager)
 			throws IOException, NoSuchAlgorithmException {

@@ -8,9 +8,10 @@ public class HashGenerator {
 	/**
 	 * Generates hash for id
 	 * 
-	 * @param input
-	 * @return
-	 * @throws NoSuchAlgorithmException
+	 * @param input String to hash
+	 * 
+	 * @return ByteArray with hash
+	 * @throws NoSuchAlgorithmException Error while generate hash
 	 */
 	public byte[] getSHA(String input) throws NoSuchAlgorithmException {
 		if (input == null || input.isEmpty()) {

@@ -13,7 +13,7 @@ public class LevelObject {
 	/**
 	 * Returns array with all possible levels
 	 * 
-	 * @return
+	 * @return all avaible levels
 	 */
 	public short[] getLevels() {
 		return levels;
@@ -22,7 +22,7 @@ public class LevelObject {
 	/**
 	 * Returns array with all level names
 	 * 
-	 * @return
+	 * @return All avaible level names
 	 */
 	public String[] getLevelNames() {
 		return levelNames;
@@ -31,7 +31,7 @@ public class LevelObject {
 	/**
 	 * Returns current level
 	 * 
-	 * @return
+	 * @return current level
 	 */
 	public short getLevel() {
 		return currLevel;
@@ -40,7 +40,7 @@ public class LevelObject {
 	/**
 	 * Returns name of current level
 	 * 
-	 * @return
+	 * @return Name of current level
 	 */
 	public String getLevelName() {
 		return levelNames[currLevel];

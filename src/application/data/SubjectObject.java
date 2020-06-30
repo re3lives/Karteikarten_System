@@ -21,9 +21,10 @@ public class SubjectObject {
 	/**
 	 * Creates new vocab for this subject
 	 * 
-	 * @param vocab
-	 * @return
-	 * @throws NoSuchAlgorithmException
+	 * @param vocab Vocab to learn
+	 * @param question Question for vocab
+	 * @return Completed object
+	 * @throws NoSuchAlgorithmException Error while generate hash
 	 */
 	public VocabObject createVocab(String vocab, String question) throws NoSuchAlgorithmException {
 		if (vocab == null || vocab.isEmpty()) {
@@ -46,7 +47,7 @@ public class SubjectObject {
 	/**
 	 * Removes vocab from this subject
 	 * 
-	 * @param id
+	 * @param oldVocab Vocab string to remove
 	 */
 	public void removeVocab(String oldVocab) {
 		if (oldVocab == null || oldVocab.isEmpty()) {
@@ -59,8 +60,9 @@ public class SubjectObject {
 	/**
 	 * Edits vocab from this subject
 	 * 
-	 * @param id
-	 * @param newVocab
+	 * @param oldVocab Vocab to edit
+	 * @param newVocab New vocab
+	 * @param newQuestion New question
 	 */
 	public void editVocab(String oldVocab, String newVocab, String newQuestion) {
 		if (oldVocab == null || newVocab == null || oldVocab.isEmpty() || newVocab.isEmpty() || newQuestion == null || newQuestion.isEmpty()) {
@@ -87,7 +89,7 @@ public class SubjectObject {
 	/**
 	 * Get name
 	 * 
-	 * @return
+	 * @return Name of subjectobject
 	 */
 	public String getName() {
 		return name;
@@ -96,7 +98,7 @@ public class SubjectObject {
 	/**
 	 * Get id
 	 * 
-	 * @return
+	 * @return hash id
 	 */
 	public byte[] getId() {
 		return id;
@@ -105,7 +107,7 @@ public class SubjectObject {
 	/**
 	 * Get vocabs
 	 * 
-	 * @return
+	 * @return List with all VocabObjects
 	 */
 
 	public ArrayList<VocabObject> getVocabList() {

@@ -17,8 +17,9 @@ public class SubjectManager {
 	/**
 	 * Creates new subject
 	 * 
-	 * @param name
-	 * @throws NoSuchAlgorithmException
+	 * @param name Subject name
+	 * @throws NoSuchAlgorithmException Error while generate hash
+	 * @return Returns complete object
 	 */
 	public SubjectObject createSubject(String name) throws NoSuchAlgorithmException {
 		if (name == null || name.isEmpty()) {
@@ -38,11 +39,11 @@ public class SubjectManager {
 	/**
 	 * Must be called to save data
 	 * 
-	 * @throws IOException
+	 * @throws IOException Error while saving data
 	 */
 	public void onClose() throws IOException {
 		for (SubjectObject subject : subjectList) {
-			manager.saveSubjectObjectToCSV(subject, subject.getName());
+			manager.saveSubjectObjectToCSV(subject);
 			manager.saveSubjectManagerToCSV(this);
 		}
 	}
@@ -50,7 +51,7 @@ public class SubjectManager {
 	/**
 	 * Get subject list
 	 * 
-	 * @return
+	 * @return Returns array with all subjectObjects
 	 */
 	public ArrayList<SubjectObject> getSubjectList() {
 		return subjectList;

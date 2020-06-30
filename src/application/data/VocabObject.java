@@ -20,7 +20,7 @@ public class VocabObject extends LevelObject{
 	/**
 	 * Get vocab string
 	 * 
-	 * @return
+	 * @return Vocab string
 	 */
 	public String getVocab() {
 		return vocab;
@@ -29,7 +29,8 @@ public class VocabObject extends LevelObject{
 	/**
 	 * Set vocab String
 	 * 
-	 * @param vocab
+	 * @param vocab Vocab to learn
+	 * @param question Question for vocab
 	 */
 	public void setVocab(String vocab, String question) {
 		if (vocab == null || vocab.isEmpty() || question == null || question.isEmpty()) {
@@ -42,7 +43,7 @@ public class VocabObject extends LevelObject{
 	/**
 	 * Get int id
 	 * 
-	 * @return
+	 * @return byte hash
 	 */
 	public byte[] getId() {
 		return id;
