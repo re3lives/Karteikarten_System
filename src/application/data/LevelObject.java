@@ -4,7 +4,8 @@ public class LevelObject {
 
 	private short currLevel = 0;
 	private final static short levels[] = { 0, 1, 2, 3 };
-	private final static String levelNames[] = { "Neu", "Gelernt", "Gut Gelernt", "Gekonnt" };
+	private final static String levelNames[] = { "ungelernt", "gelernt", "gut gelernt", "perfekt"
+			+ " gelernt" };
 
 	public LevelObject() {
 		// TODO Auto-generated constructor stub
@@ -50,7 +51,7 @@ public class LevelObject {
 	 * Level up for this vocab
 	 */
 	public void levelUp() {
-		if (currLevel < levels[levels.length - 2]) {
+		if (currLevel < levels[levels.length - 1]) {
 			currLevel += 1;
 		}
 	}
@@ -65,7 +66,7 @@ public class LevelObject {
 	}
 
 	public void setLevel(short level) {
-		if (level >= levels[0] && level <= levels[levels.length - 1]) {
+		if (level >= levels[0] || level <= levels[levels.length - 1]) {
 			currLevel = level;
 		} else {
 			throw new IllegalArgumentException("Unkown level!");

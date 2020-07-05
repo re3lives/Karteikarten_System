@@ -7,5 +7,6 @@ module Karteikarten_System {
 	requires javafx.fxml;
 	requires org.junit.jupiter.api;
 	requires junit;
+	requires java.base;
 	opens application;
 }
