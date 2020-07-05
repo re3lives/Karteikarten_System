@@ -4,8 +4,7 @@ public class LevelObject {
 
 	private short currLevel = 0;
 	private final static short levels[] = { 0, 1, 2, 3 };
-	private final static String levelNames[] = { "ungelernt", "gelernt", "gut gelernt", "perfekt"
-			+ " gelernt" };
+	private final static String levelNames[] = { "ungelernt", "gelernt", "gut gelernt", "perfekt gelernt"};
 
 	public LevelObject() {
 		// TODO Auto-generated constructor stub

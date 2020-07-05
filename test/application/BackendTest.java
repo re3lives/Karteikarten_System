@@ -12,7 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 import application.data.LevelObject;
+import application.data.SubjectManager;
+import application.data.SubjectObject;
 import application.data.VocabObject;
+import application.trainer.LowToHighLevelTrainer;
 
 class BackendTest {
 
@@ -215,11 +218,6 @@ class BackendTest {
 	}
 	
 	
-	
-	
-	
-	
-	
 	/**
 	 * Alle Tests für Vocabeln
 	 */
@@ -235,7 +233,7 @@ class BackendTest {
 		 */
 		@Test
 		@DisplayName("erfolgreiche Antwort kk")
-		void testVocTrueVocab() throws Exception {
+		void testVocTrueVocab() throws NoSuchAlgorithmException {
 			VocabObject vocabObject = new VocabObject("antwort","frage"); 
 			assertEquals("antwort", vocabObject.getVocab());
 		}
@@ -286,7 +284,6 @@ class BackendTest {
 	}
 	
 	
-	
 	/**
 	 * Alle Tests für Subjects
 	 */
@@ -294,39 +291,182 @@ class BackendTest {
 	@DisplayName("Subject Tests")
 	class subjectTests{
 		
+		/**
+		 * leeres SubjectObjekt
+		 */
+		@Test
+		@DisplayName("leeres SubjectObject")
+		void testEmptySubjectObject() {
+			assertThrows(IllegalArgumentException.class, new Executable() {
+				@Override
+				public void execute() throws Throwable {
+					SubjectObject subjectObject = new SubjectObject("");
+				}	
+			});
+		}	
 		
 		/**
-		 * erfolgereiche Frage kk
+		 * erfolgereiches SubjectObjekt erstellen
 		 * @throws NoSuchAlgorithmException 
 		 */
 		@Test
-		@DisplayName("erfolgreiche Frage kk")
-		void testVocTrueQuestion() throws NoSuchAlgorithmException {
-			VocabObject vocabObject = new VocabObject("antwort","frage"); 
-			assertEquals("frage", vocabObject.getQuestion());
+		@DisplayName("erfolgreiches erstellen SubjectObject")
+		void testSubjectObjectName() throws NoSuchAlgorithmException {
+			SubjectObject subjectObject = new SubjectObject("name"); 
+			assertEquals("name", subjectObject.getName());
+		}
+		
+		/**
+		 * leeres SubjectObjekt frage
+		 */
+		@Test
+		@DisplayName("SubjectObject keine Frage")
+		void testSubjectObjectNoQuestion() {
+			assertThrows(IllegalArgumentException.class, new Executable() {
+				@Override
+				public void execute() throws Throwable {
+					SubjectObject subjectObject = new SubjectObject("name");
+					subjectObject.createVocab("","antwort");
+				}	
+			});
+		}	
+		
+		/**
+		 * SubjectObjekt keine Antwort
+		 */
+		@Test
+		@DisplayName("SubjectObject keine Antwort")
+		void testSubjectObjectNoAnswer() {
+			assertThrows(IllegalArgumentException.class, new Executable() {
+				@Override
+				public void execute() throws Throwable {
+					SubjectObject subjectObject = new SubjectObject("name");
+					subjectObject.createVocab("frage","");
+				}	
+			});
+		}	
+		
+		/*
+		  SubjectObjekt gleiche Antwort
+		 
+		@Test
+		@DisplayName("SubjectObject gleiche Antwort")
+		void testSubjectObjectSameAnswer() {
+			assertThrows(IllegalArgumentException.class, new Executable() {
+				@Override
+				public void execute() throws Throwable {
+					SubjectObject subjectObject = new SubjectObject("name");
+					subjectObject.createVocab("frage","antwort");
+					SubjectObject subjectObject2 = new SubjectObject("name");
+					subjectObject2.createVocab("frage","antwort");
+				}	
+			});
+		}
+		*/
+		
+		/**
+		 * SubjectObjekt remove empty
+		 */
+		@Test
+		@DisplayName("SubjectObjekt remove empty")
+		void testSubjectObjectRemoveEmpty() {
+			assertThrows(IllegalArgumentException.class, new Executable() {
+				@Override
+				public void execute() throws Throwable {
+					SubjectObject subjectObject = new SubjectObject("name");
+					subjectObject.createVocab("frage","antwort");
+					subjectObject.removeVocab(null);
+				}	
+			});
+		}
+		
+		/**
+		 * SubjectObjekt edit keine alte antwort
+		 */
+		@Test
+		@DisplayName("SubjectObjekt edit keine alte antwort")
+		void testSubjectObjectEditNoOldanswer() {
+			assertThrows(IllegalArgumentException.class, new Executable() {
+				@Override
+				public void execute() throws Throwable {
+					SubjectObject subjectObject = new SubjectObject("name");
+					subjectObject.createVocab("frage","antwortalt");
+					subjectObject.editVocab("","antwortneu", "frageneu");
+				}	
+			});
+		}
+		
+		/**
+		 * SubjectObjekt edit keine neue antwort
+		 */
+		@Test
+		@DisplayName("SubjectObjekt edit neue alte antwort")
+		void testSubjectObjectEditNoNewanswer() {
+			assertThrows(IllegalArgumentException.class, new Executable() {
+				@Override
+				public void execute() throws Throwable {
+					SubjectObject subjectObject = new SubjectObject("name");
+					subjectObject.createVocab("frage","antwortalt");
+					subjectObject.editVocab("antwortalt","", "frageneu");
+				}	
+			});
+		}
+		
+		/**
+		 * SubjectObjekt edit keine neue frage
+		 */
+		@Test
+		@DisplayName("SubjectObjekt edit keine neue frage")
+		void testSubjectObjectEditNoNewquestion() {
+			assertThrows(IllegalArgumentException.class, new Executable() {
+				@Override
+				public void execute() throws Throwable {
+					SubjectObject subjectObject = new SubjectObject("name");
+					subjectObject.createVocab("frage","antwortalt");
+					subjectObject.editVocab("antwortalt","antwortneu", "");
+				}	
+			});
+		}
+		
+		/**
+		 * SubjectObjekt finde voc leer
+		 */
+		@Test
+		@DisplayName("SubjectObjekt finde voc leer")
+		void testSubjectObjectFindVocEmpty() {
+			assertThrows(IllegalArgumentException.class, new Executable() {
+				@Override
+				public void execute() throws Throwable {
+					SubjectObject subjectObject = new SubjectObject("name");
+					subjectObject.createVocab("frage","antwort");
+					subjectObject.findVocabByString(null);
+				}	
+			});
+		}
+		
+		/**
+		 * SubjectObjekt finde voc nicht vorhanden
+		 */
+		@Test
+		@DisplayName("SubjectObjekt finde voc nicht vorhanden")
+		void testSubjectObjectNoFindVoc() {
+			assertThrows(IllegalAccessError.class, new Executable() {
+				@Override
+				public void execute() throws Throwable {
+					SubjectObject subjectObject = new SubjectObject("name");
+					subjectObject.createVocab("frage","antwort");
+					subjectObject.findVocabByString("nicht");
+				}	
+			});
 		}
 		
 		
 		
-		/**
-		 * keine Frage in der kk
-		 */
-		@Test
-		@DisplayName("keine Frage Kk")
-		void testVocEmptyQuestion() {
-			assertThrows(IllegalArgumentException.class, new Executable() {
-				@Override
-				public void execute() throws Throwable {
-				new VocabObject("test",""); 
-				}
-				
-			});
-		}	
-		
-		
-		
+
+		//SubjectObject subjectObject = new SubjectObject("name"));
 		
 	}
+	
 	
 	/**
 	 * Alle Tests für SubjectManager
@@ -335,8 +475,38 @@ class BackendTest {
 	@DisplayName("SubjectManager Tests")
 	class subjectManagerTests{
 		
+			
+		
+		/**
+		 * SubjectManager leer
+		 */
+		@Test
+		@DisplayName("SubjectObjekt finde voc leer")
+		void testSubjectManagerEmpty() {
+			assertThrows(IllegalArgumentException.class, new Executable() {
+				@Override
+				public void execute() throws Throwable {
+					SubjectManager subjectManager = new SubjectManager();
+					subjectManager.createSubject(null);
+				}	
+			});
+		}
+		
+		
+		
+		/**
+		 * erfolgereiches SubjectObjekt erstellen
+		 * @throws NoSuchAlgorithmException 
+		 
+		@Test
+		@DisplayName("erfolgreiches erstellen SubjectObject")
+		void testSubjectObjectName() throws NoSuchAlgorithmException {
+			SubjectObject subjectObject = new SubjectObject("name"); 
+			assertEquals("name", subjectObject.getName());
+		}
+		*/
+		
 	}
-	
 	
 	
 	/**

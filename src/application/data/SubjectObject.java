@@ -78,8 +78,12 @@ public class SubjectObject {
 	 * @param id
 	 * @return
 	 */
-	private VocabObject findVocabByString(String str) {
+	public VocabObject findVocabByString(String str) {
+		if (str == null) {
+			throw new IllegalArgumentException();
+		}
 		VocabObject vocab = vocabList.stream().filter(v -> v.getVocab().equalsIgnoreCase(str)).findFirst().orElse(null);
+		
 		if (vocab == null) {
 			throw new IllegalAccessError("Object does not exist!");
 		}
