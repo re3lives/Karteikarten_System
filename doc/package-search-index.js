@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"m":"Karteikarten_System","l":"application.data"},{"m":"Karteikarten_System","l":"application.trainer"}]

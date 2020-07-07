@@ -1,58 +1,63 @@
 package application.data;
 
-public class VocabObject {
+import java.security.NoSuchAlgorithmException;
+
+public class VocabObject extends LevelObject{
+	private String question;
 	private String vocab;
-	
-	/**
-	 * TODO: Hash ID
-	 */
-	private int id;
-	private LevelObject level = new LevelObject();
-	
-	public VocabObject(String vocab, int id) {
+	private byte[] id;
+	private HashGenerator gen = new HashGenerator();
+
+	public VocabObject(String vocab, String question) throws NoSuchAlgorithmException {
+		if (vocab == null || vocab.isEmpty() || question == null || question.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
 		this.vocab = vocab;
-		this.id = id;
+		this.id = gen.getSHA(vocab);
+		this.question = question;
 	}
-	
+
 	/**
 	 * Get vocab string
-	 * @return
+	 * 
+	 * @return Vocab string
 	 */
 	public String getVocab() {
 		return vocab;
 	}
-	
+
 	/**
 	 * Set vocab String
-	 * @param vocab
+	 * 
+	 * @param vocab Vocab to learn
+	 * @param question Question for vocab
 	 */
-	public void setVocab(String vocab) {
-		if(vocab == null || vocab.isEmpty()) {
+	public void setVocab(String vocab, String question) {
+		if (vocab == null || vocab.isEmpty() || question == null || question.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
 		this.vocab = vocab;
+		this.question = question;
 	}
 
 	/**
 	 * Get int id
-	 * @return
+	 * 
+	 * @return byte hash
 	 */
-	public int getId() {
+	public byte[] getId() {
 		return id;
 	}
 	
-	/**
-	 * Returns current level
-	 * @return
-	 */
-	public short getLevel() {
-		return level.getCurrLevel();
+	public String getQuestion() {
+		return question;
 	}
 	
-	/**
-	 * Level up, if max level not reached
-	 */
-	public void levelUp() {
-		level.levelUp();
+	public void setQuestion(String question) {
+		if(question == null || question.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
+		
+		this.question = question;
 	}
 }
