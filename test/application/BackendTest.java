@@ -345,25 +345,7 @@ class BackendTest {
 				}	
 			});
 		}	
-		
-		/*
-		  SubjectObjekt gleiche Antwort
-		 
-		@Test
-		@DisplayName("SubjectObject gleiche Antwort")
-		void testSubjectObjectSameAnswer() {
-			assertThrows(IllegalArgumentException.class, new Executable() {
-				@Override
-				public void execute() throws Throwable {
-					SubjectObject subjectObject = new SubjectObject("name");
-					subjectObject.createVocab("frage","antwort");
-					SubjectObject subjectObject2 = new SubjectObject("name");
-					subjectObject2.createVocab("frage","antwort");
-				}	
-			});
-		}
-		*/
-		
+
 		/**
 		 * SubjectObjekt remove empty
 		 */
@@ -491,56 +473,5 @@ class BackendTest {
 				}	
 			});
 		}
-		
-		
-		
-		/**
-		 * erfolgereiches SubjectObjekt erstellen
-		 * @throws NoSuchAlgorithmException 
-		 
-		@Test
-		@DisplayName("erfolgreiches erstellen SubjectObject")
-		void testSubjectObjectName() throws NoSuchAlgorithmException {
-			SubjectObject subjectObject = new SubjectObject("name"); 
-			assertEquals("name", subjectObject.getName());
-		}
-		*/
-		
 	}
-	
-	
-	/**
-	 * Alle Tests für Trainer
-	 */
-	@Nested
-	@DisplayName("Trainer Tests")
-	class trainerTests{
-		/**
-		 * Alle Tests für LowToHighLevelTrainer
-		 */
-		@Nested
-		@DisplayName("LowToHighLevelTrainer Tests")
-		class lowToHighLevelTrainerTests{
-			
-		}
-		
-		/**
-		 * Alle Tests für NumericTrainer
-		 */
-		@Nested
-		@DisplayName("NumericTrainer Tests")
-		class numericTrainerTests{
-			
-		}
-		
-		/**
-		 * Alle Tests für RandomTrainer
-		 */
-		@Nested
-		@DisplayName("RandomTrainer Tests")
-		class randomLevelTrainerTests{
-			
-		}
-	}
-
 }
